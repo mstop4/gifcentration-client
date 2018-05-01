@@ -6,7 +6,7 @@ it('renders without crashing', () => {
   shallow(<Card />);
 });
 
-it('has a p', () => {
+it('has four divs', () => {
   const card = shallow(<Card />);
-  expect(card.find('p')).toHaveLength(1);
+  expect(card.find('div')).toHaveLength(4);
 });
