@@ -6,8 +6,12 @@ class Card extends Component {
     return (
       <section class="container">
         <div class="body">
-          <figure class="front">1</figure>
-          <figure class="back">2</figure>
+          <figure class="front">
+            ?
+          </figure>
+          <figure class="back">
+            <img src="https://media0.giphy.com/media/Maz1hoeGskARW/200w.gif" alt="kitty"/>
+          </figure>
         </div>
       </section>
     );
