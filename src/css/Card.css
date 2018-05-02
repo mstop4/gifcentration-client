@@ -1,6 +1,6 @@
 :root {
-  --max-card-dim: 220px;
-  --max-img-dim: 200px;
+  --max-card-dim: 200px;
+  --max-img-dim: 180px;
 }
 
 .container {

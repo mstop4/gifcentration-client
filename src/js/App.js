@@ -13,6 +13,9 @@ class App extends Component {
 
     return (
       <div className="App">
+        <div className="title">
+          <h1>Card Flipping Demo (Try Clicking!)</h1>
+        </div>
         {cardArray}
       </div>
     );
