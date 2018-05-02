@@ -4,16 +4,12 @@ import '../../css/Card.css'
 class Card extends Component {
   render() {
     return (
-      <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
-        <div class="flipper">
-          <div class="front">
-            Front
-          </div>
-          <div class="back">
-            Back
-          </div>
+      <section class="container">
+        <div class="body">
+          <figure class="front">1</figure>
+          <figure class="back">2</figure>
         </div>
-      </div>
+      </section>
     );
   }
 }
