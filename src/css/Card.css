@@ -1,8 +1,13 @@
+:root {
+  --max-card-dim: 220px;
+  --max-img-dim: 200px;
+}
+
 .container {
   border: 1px solid grey;
   margin: 5px;
-  width: 220px;
-  height: 220px;
+  width: var(--max-card-dim);
+  height: var(--max-card-dim);
   position: relative;
   perspective: 800px;
   display: inline-block;
@@ -20,19 +25,19 @@
 .body figure {
   color: white;
   margin: 0;
-  line-height: 220px;
+  line-height: var(--max-card-dim);
   text-align: center;
   font-weight: bold;
-  font-size: 144px;
   display: block;
   position: absolute;
-  width: 220px;
-  height: 220px;
+  width: var(--max-card-dim);
+  height: var(--max-card-dim);
   backface-visibility: hidden;
 }
 
 .body .front {
   background: red;
+  font-size: calc(var(--max-card-dim) * 1);
 }
 
 .body .back {
@@ -40,6 +45,19 @@
   transform: rotateY(180deg);
 }
 
-.body:hover {
+.body.flipped {
   transform: rotateY(180deg);
+}
+
+.gif {
+  max-height: var(--max-img-dim);  
+  max-width: var(--max-img-dim); 
+  width: auto;
+  height: auto;
+  position: absolute;  
+  top: 0;  
+  bottom: 0;  
+  left: 0;  
+  right: 0;  
+  margin: auto;
 }

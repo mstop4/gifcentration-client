@@ -8,7 +8,7 @@ class App extends Component {
     let cardArray = [];
 
     for (let i = 0; i < 18; i++) {
-      cardArray.push(<Card/>);
+      cardArray.push(<Card key={i}/>);
     }
 
     return (
