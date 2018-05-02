@@ -2,7 +2,11 @@
 
 /* entire container, keeps perspective */
 .flip-container {
-	perspective: 1000px;
+  perspective: 1000px;
+  width: 220px;
+  height: 220px;
+  margin: 5px;
+  display: inline-block;
 }
 
 /* flip the pane when hovered */
@@ -11,15 +15,15 @@
 }
 
 .flip-container, .front, .back {
-	width: 220px;
-	height: 220px;
+  width: 220px;
+  height: 220px;
 }
 
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
-	position: relative;
+  position: relative;
 }
 
 /* hide back of pane during swap */
@@ -28,7 +32,7 @@
 
 	position: absolute;
 	top: 0;
-	left: 0;
+  left: 0;
 }
 
 /* front pane, placed above back */
