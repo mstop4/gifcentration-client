@@ -23,11 +23,7 @@
 }
 
 .body figure {
-  color: white;
   margin: 0;
-  line-height: var(--max-card-dim);
-  text-align: center;
-  font-weight: bold;
   display: block;
   position: absolute;
   width: var(--max-card-dim);
@@ -37,7 +33,15 @@
 
 .body .front {
   background: red;
-  font-size: calc(var(--max-card-dim) * 1);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  line-height: var(--max-card-dim);
+  font-size: calc(var(--max-card-dim) * 0.8);
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .body .back {
