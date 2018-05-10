@@ -11,7 +11,8 @@ class App extends Component {
         <div className="title">
           <h1>Card Flipping Demo (Try Clicking!)</h1>
         </div>
-        <CardArray/>
+        <CardArray
+          numPairs={9}/>
       </div>
     );
   }
