@@ -5,23 +5,17 @@ class Card extends Component {
 
   constructor() {
     super()
-    this.state = {
-      flipped: false,
-    }
-
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick(e) {
-    e.preventDefault()
-    this.setState({ flipped: !this.state.flipped }) 
-    console.log("Flip")
+    this.props.handleClick(this.props.index, e)
   }
 
   render() {
     return (
       <section className="container">
-        <div className={"body" + (this.state.flipped ? " flipped" : "")} onClick={this.handleClick}>
+        <div className={"body" + (this.props.flipped ? " flipped" : "")} onClick={this.handleClick}>
           <figure className="front">
             ?
           </figure>
