@@ -40,7 +40,7 @@ class CardArray extends Component {
       this.numFlipped++
 
       if (this.numFlipped >= 2) {
-        setTimeout(this.checkPair, 2000)
+        setTimeout(this.checkPair, 1500)
       }
 
       this.setState({

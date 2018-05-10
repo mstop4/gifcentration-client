@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="title">
-          <h1>Card Flipping Demo (Try Clicking!)</h1>
+          <h1>GIFcentration with Cats (Try Clicking!)</h1>
         </div>
         <CardArray
           numPairs={this.state.numPairs}/>
