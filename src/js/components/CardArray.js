@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Card from './Card'
+import PropTypes from 'prop-types'
 import imageData from '../helpers/imageData'
 import pairShuffler from '../helpers/pairShuffler' 
 
@@ -53,6 +54,10 @@ class CardArray extends Component {
       </div>
     )
   }
+}
+
+CardArray.propTypes = {
+  numPairs: PropTypes.number
 }
 
 export default CardArray

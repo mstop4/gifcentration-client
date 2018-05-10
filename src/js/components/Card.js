@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import '../../css/Card.css'
 
 class Card extends Component {
@@ -26,6 +27,14 @@ class Card extends Component {
       </section>
     );
   }
+}
+
+Card.propTypes = {
+  index: PropTypes.number,
+  handleClick: PropTypes.func,
+  flipped: PropTypes.bool,
+  imageUrl: PropTypes.string,
+  altText: PropTypes.string
 }
 
 export default Card;
