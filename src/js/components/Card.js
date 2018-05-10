@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import '../../css/Card.css'
 
 class Card extends Component {
 
   constructor() {
-    super();
+    super()
     this.state = {
-      flipped: false
+      flipped: false,
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -26,7 +26,7 @@ class Card extends Component {
             ?
           </figure>
           <figure className="back">
-            <img className="gif" src="https://media0.giphy.com/media/Maz1hoeGskARW/200w.gif" alt="kitty"/>
+            <img className="gif" src={this.props.imageUrl} alt={this.props.altText}/>
           </figure>
         </div>
       </section>
