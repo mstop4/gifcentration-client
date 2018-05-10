@@ -15,6 +15,8 @@ class CardArray extends Component {
   }
 
   componentWillMount() {
+    this.cardIndices = pairShuffler(this.props.numPairs)
+
     let newFlipped = []
     for (let i = 0; i < this.props.numPairs*2; i++) {
       newFlipped.push(false)
@@ -35,7 +37,6 @@ class CardArray extends Component {
 
   render() {
     let cardArray = [];
-    let cardIndices = pairShuffler(this.props.numPairs)
 
     for (let i = 0; i < this.props.numPairs*2; i++) {
       cardArray.push(
@@ -43,7 +44,7 @@ class CardArray extends Component {
               index={i}
               handleClick={this.handleCardFlip}
               flipped={this.state.flipped[i]}
-              imageUrl={imageData[cardIndices[i]]}
+              imageUrl={imageData[this.cardIndices[i]]}
               altText='kitty'
       />);
     }

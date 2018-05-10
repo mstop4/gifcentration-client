@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import '../../css/Card.css'
 
 class Card extends Component {
-
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
