@@ -8,7 +8,8 @@ class CardArray extends Component {
   constructor() {
     super()
     this.state = {
-      flipped: []
+      flipped: [],
+      numFlipped: 0
     }
 
     this.handleCardFlip = this.handleCardFlip.bind(this)
@@ -27,10 +28,14 @@ class CardArray extends Component {
   handleCardFlip(index, e) {
     e.preventDefault()
 
-    if (!this.state.flipped[index]) {
+    if (!this.state.flipped[index] && this.state.numFlipped < 2) {
       let newFlipped = this.state.flipped
       newFlipped[index] = true
-      this.setState({flipped: newFlipped})
+
+      this.setState({
+        flipped: newFlipped,
+        numFlipped: this.state.numFlipped+1
+      })
       console.log('Flip')
     }
   }

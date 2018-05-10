@@ -4,15 +4,21 @@ import CardArray from './components/CardArray'
 import '../css/App.css'
 
 class App extends Component {
-  render() {
+  constructor() {
+    super()
+    this.state = {
+      numPairs: 9
+    }
+  }
 
+  render() {
     return (
       <div className="App">
         <div className="title">
           <h1>Card Flipping Demo (Try Clicking!)</h1>
         </div>
         <CardArray
-          numPairs={9}/>
+          numPairs={this.state.numPairs}/>
       </div>
     );
   }
