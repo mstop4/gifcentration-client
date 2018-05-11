@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MenuBar from './components/MenuBar'
 import CardArray from './components/CardArray'
+import QueryBox from './components/QueryBox'
 import '../css/App.css'
 
 class App extends Component {
@@ -15,6 +16,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <QueryBox
+          query={this.state.query}
+        />
         <MenuBar/>
         <CardArray
           numPairs={this.state.numPairs}

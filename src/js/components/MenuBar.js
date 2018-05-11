@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import NewGameButton from './NewGameButton'
 
 class MenuBar extends Component {
 
@@ -8,7 +7,7 @@ class MenuBar extends Component {
     return (
       <div className="menubar">
         <span className="title">GIFcentration</span>
-        <NewGameButton/>
+        <button className="newgame">New Game</button>
       </div>
     )
   }
