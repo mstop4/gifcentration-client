@@ -19,7 +19,7 @@ class App extends Component {
         </div>
         <CardArray
           numPairs={this.state.numPairs}
-          query={'dogs'}
+          query={'yoshi'}
         />
       </div>
     );

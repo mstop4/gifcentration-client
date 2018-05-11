@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Card from './Card'
 import PropTypes from 'prop-types'
-import imageData from '../helpers/imageData'
+//import imageData from '../helpers/imageData'
 import pairShuffler from '../helpers/pairShuffler' 
 
 class CardArray extends Component {
@@ -10,7 +10,8 @@ class CardArray extends Component {
     this.state = {
       flipped: [],
       imageUrls: [],
-      isLoaded: false
+      isLoaded: false,
+      error: null
     }
 
     this.numFlipped = 0
@@ -23,24 +24,37 @@ class CardArray extends Component {
 
   componentDidMount() {
     fetch(`http://localhost:3001/gifme/json?query=${this.props.query}&limit=${this.props.numPairs}`)
-      .then(res => {
-        return res.json()
-      }).then(data => {
-        let newUrls = data
-        console.dir(data)
+      .then(res => res.json())
+      .then(data => {
+        if (data.length < this.props.numPairs) {
+          this.setState({
+            isLoaded: false,
+            error: "Query did not return enough GIFs"
+          })
+        } else {
+          this.cardIndices = pairShuffler(this.props.numPairs)
 
-        this.cardIndices = pairShuffler(this.props.numPairs)
-
-        let newFlipped = []
-        for (let i = 0; i < this.props.numPairs*2; i++) {
-          newFlipped.push(false)
+          let newFlipped = []
+          for (let i = 0; i < this.props.numPairs*2; i++) {
+            newFlipped.push(false)
+          }
+          this.setState({
+            flipped: newFlipped,
+            imageUrls: data,
+            isLoaded: true,
+            error: null
+          })
         }
+      },
+
+      error => {
+        console.dir(error)
         this.setState({
-          flipped: newFlipped,
-          imageUrls: newUrls,
-          isLoaded: true
+          isLoaded: false,
+          error: error.message
         })
-      })
+      }
+    )
   }
 
   handleCardFlip(index, e) {
@@ -79,31 +93,36 @@ class CardArray extends Component {
   }
 
   render() {
-    let cardArray = [];
+    if (this.state.error) {
+      return <p>Problem getting GIFs from the server: {this.state.error}</p>
+    } else {
+      let cardArray = [];
 
-    if (this.state.isLoaded) {
-      for (let i = 0; i < this.props.numPairs*2; i++) {
-        cardArray.push(
-          <Card key={i}
-                index={i}
-                handleClick={this.handleCardFlip}
-                flipped={this.state.flipped[i]}
-                imageUrl={this.state.imageUrls[this.cardIndices[i]]}
-                altText='kitty'
-        />)
+      if (this.state.isLoaded) {
+        for (let i = 0; i < this.props.numPairs*2; i++) {
+          cardArray.push(
+            <Card key={i}
+                  index={i}
+                  handleClick={this.handleCardFlip}
+                  flipped={this.state.flipped[i]}
+                  imageUrl={this.state.imageUrls[this.cardIndices[i]]}
+                  altText='kitty'
+          />)
+        }
       }
-    }
 
-    return (
-      <div>
-        {cardArray}
-      </div>
-    )
+      return (
+        <div>
+          {cardArray}
+        </div>
+      )
+    }
   }
 }
 
 CardArray.propTypes = {
-  numPairs: PropTypes.number
+  numPairs: PropTypes.number,
+  query: PropTypes.string
 }
 
 export default CardArray
