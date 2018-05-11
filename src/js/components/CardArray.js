@@ -8,7 +8,9 @@ class CardArray extends Component {
   constructor() {
     super()
     this.state = {
-      flipped: []
+      flipped: [],
+      imageUrls: [],
+      isLoaded: false
     }
 
     this.numFlipped = 0
@@ -19,14 +21,26 @@ class CardArray extends Component {
     this.checkPair = this.checkPair.bind(this)
   }
 
-  componentWillMount() {
-    this.cardIndices = pairShuffler(this.props.numPairs)
+  componentDidMount() {
+    fetch(`http://localhost:3001/gifme/json?query=${this.props.query}&limit=${this.props.numPairs}`)
+      .then(res => {
+        return res.json()
+      }).then(data => {
+        let newUrls = data
+        console.dir(data)
 
-    let newFlipped = []
-    for (let i = 0; i < this.props.numPairs*2; i++) {
-      newFlipped.push(false)
-    }
-    this.setState({flipped: newFlipped})
+        this.cardIndices = pairShuffler(this.props.numPairs)
+
+        let newFlipped = []
+        for (let i = 0; i < this.props.numPairs*2; i++) {
+          newFlipped.push(false)
+        }
+        this.setState({
+          flipped: newFlipped,
+          imageUrls: newUrls,
+          isLoaded: true
+        })
+      })
   }
 
   handleCardFlip(index, e) {
@@ -67,15 +81,17 @@ class CardArray extends Component {
   render() {
     let cardArray = [];
 
-    for (let i = 0; i < this.props.numPairs*2; i++) {
-      cardArray.push(
-        <Card key={i}
-              index={i}
-              handleClick={this.handleCardFlip}
-              flipped={this.state.flipped[i]}
-              imageUrl={imageData[this.cardIndices[i]]}
-              altText='kitty'
-      />);
+    if (this.state.isLoaded) {
+      for (let i = 0; i < this.props.numPairs*2; i++) {
+        cardArray.push(
+          <Card key={i}
+                index={i}
+                handleClick={this.handleCardFlip}
+                flipped={this.state.flipped[i]}
+                imageUrl={this.state.imageUrls[this.cardIndices[i]]}
+                altText='kitty'
+        />)
+      }
     }
 
     return (

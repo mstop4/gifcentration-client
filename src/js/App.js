@@ -15,10 +15,12 @@ class App extends Component {
     return (
       <div className="App">
         <div className="title">
-          <h1>GIFcentration with Cats (Try Clicking!)</h1>
+          <h1>GIFcentration</h1>
         </div>
         <CardArray
-          numPairs={this.state.numPairs}/>
+          numPairs={this.state.numPairs}
+          query={'dogs'}
+        />
       </div>
     );
   }
