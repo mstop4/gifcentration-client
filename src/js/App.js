@@ -18,7 +18,6 @@ class App extends Component {
     }
 
     this.serverAddress = null
-    //this.fetchGifs = this.fetchGifs.bind(this)
   }
 
   componentDidMount() {

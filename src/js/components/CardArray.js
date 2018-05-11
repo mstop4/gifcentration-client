@@ -20,7 +20,7 @@ class CardArray extends Component {
 
   componentDidMount() {
     let newFlipped = []
-    for (let i = 0; i < this.state.numPairs*2; i++) {
+    for (let i = 0; i < this.props.numPairs*2; i++) {
       newFlipped.push(true)
     }
 
