@@ -19,12 +19,7 @@ class CardArray extends Component {
   }
 
   componentDidMount() {
-    let newFlipped = []
-    for (let i = 0; i < this.props.numPairs*2; i++) {
-      newFlipped.push(true)
-    }
-
-    this.setState({ flipped: newFlipped })
+    this.resetCards()
     this.cardIndices = pairShuffler(this.props.numPairs)
   }
 
@@ -60,6 +55,15 @@ class CardArray extends Component {
     }
 
     this.numFlipped = 0
+  }
+
+  resetCards() {
+    let newFlipped = []
+    for (let i = 0; i < this.props.numPairs*2; i++) {
+      newFlipped.push(false)
+    }
+
+    this.setState({ flipped: newFlipped })
   }
 
   render() {

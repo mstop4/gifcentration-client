@@ -11,13 +11,16 @@ class App extends Component {
     this.state = {
       imageUrls: [],
       isLoaded: false,
-      canLoad: true,
+      canLoad: false,
       loadError: null,
       numPairs: 9,
       query: 'yoshi'
     }
 
     this.serverAddress = null
+    this.myCardArray = React.createRef()
+    this.handleQueryChange = this.handleQueryChange.bind(this)
+    this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
   }
 
   componentDidMount() {
@@ -25,6 +28,20 @@ class App extends Component {
 
     if (this.state.canLoad) {
       this.fetchGifs()
+    }
+  }
+
+  handleQueryChange(event) {
+    this.setState({
+      query: event.target.value
+    })
+  }
+
+  handleQuerySubmit(event) {
+    if (event.keyCode === 13) {
+      this.myCardArray.current.resetCards()
+      this.fetchGifs()
+      this.setState({canLoad: true})
     }
   }
 
@@ -60,9 +77,12 @@ class App extends Component {
       <div className="App">
         <QueryBox
           query={this.state.query}
+          handleChange={this.handleQueryChange}
+          handleSubmit={this.handleQuerySubmit}
         />
         <MenuBar/>
         <CardArray
+          ref={this.myCardArray}
           isLoaded={this.state.isLoaded}
           loadError={this.state.loadError}
           imageUrls={this.state.imageUrls}
