@@ -11,6 +11,7 @@ class CardArray extends Component {
       flipped: [],
       imageUrls: [],
       isLoaded: false,
+      canLoad: true,
       error: null
     }
 
@@ -20,44 +21,14 @@ class CardArray extends Component {
     this.serverAddress = null
 
     this.handleCardFlip = this.handleCardFlip.bind(this)
-    this.checkPair = this.checkPair.bind(this)
   }
 
   componentDidMount() {
     this.serverAddress = process.env.REACT_APP_SERVER
 
-    fetch(`${this.serverAddress}/gifme/json?query=${this.props.query}&limit=${this.props.numPairs}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.length < this.props.numPairs) {
-          this.setState({
-            isLoaded: false,
-            error: "Query did not return enough GIFs"
-          })
-        } else {
-          this.cardIndices = pairShuffler(this.props.numPairs)
-
-          let newFlipped = []
-          for (let i = 0; i < this.props.numPairs*2; i++) {
-            newFlipped.push(false)
-          }
-          this.setState({
-            flipped: newFlipped,
-            imageUrls: data,
-            isLoaded: true,
-            error: null
-          })
-        }
-      },
-
-      error => {
-        console.dir(error)
-        this.setState({
-          isLoaded: false,
-          error: error.message
-        })
-      }
-    )
+    if (this.state.canLoad) {
+      this.fetchGifs()
+    }
   }
 
   handleCardFlip(index, e) {
@@ -80,6 +51,40 @@ class CardArray extends Component {
       console.log('Flip')
     }
   }
+
+  fetchGifs() {
+    fetch(`${this.serverAddress}/gifme/json?query=${this.props.query}&limit=${this.props.numPairs}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.length < this.props.numPairs) {
+        this.setState({
+          isLoaded: false,
+          error: "Query did not return enough GIFs"
+        })
+      } else {
+        this.cardIndices = pairShuffler(this.props.numPairs)
+
+        let newFlipped = []
+        for (let i = 0; i < this.props.numPairs*2; i++) {
+          newFlipped.push(true)
+        }
+        this.setState({
+          flipped: newFlipped,
+          imageUrls: data,
+          isLoaded: true,
+          error: null
+        })
+      }
+    },
+
+    error => {
+      console.dir(error)
+      this.setState({
+        isLoaded: false,
+        error: error.message
+      })
+    }
+  )}
 
   checkPair() {
     if (this.cardIndices[this.flippedIndices[0]] === this.cardIndices[this.flippedIndices[1]]) {
