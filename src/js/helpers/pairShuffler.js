@@ -18,6 +18,4 @@ const pairShuffler = (numPairs) => {
   return shuffleArray(cards)
 }
 
-
-
 export default pairShuffler
