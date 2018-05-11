@@ -16,14 +16,17 @@ class CardArray extends Component {
 
     this.numFlipped = 0
     this.cardIndices = null
-    this.flippedIndex = [-1, -1]
+    this.flippedIndices = [-1, -1]
+    this.serverAddress = null
 
     this.handleCardFlip = this.handleCardFlip.bind(this)
     this.checkPair = this.checkPair.bind(this)
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3001/gifme/json?query=${this.props.query}&limit=${this.props.numPairs}`)
+    this.serverAddress = process.env.REACT_APP_SERVER
+
+    fetch(`${this.serverAddress}/gifme/json?query=${this.props.query}&limit=${this.props.numPairs}`)
       .then(res => res.json())
       .then(data => {
         if (data.length < this.props.numPairs) {
@@ -64,7 +67,7 @@ class CardArray extends Component {
       let newFlipped = this.state.flipped
       newFlipped[index] = true
 
-      this.flippedIndex[this.numFlipped] = index
+      this.flippedIndices[this.numFlipped] = index
       this.numFlipped++
 
       if (this.numFlipped >= 2) {
@@ -79,13 +82,13 @@ class CardArray extends Component {
   }
 
   checkPair() {
-    if (this.cardIndices[this.flippedIndex[0]] === this.cardIndices[this.flippedIndex[1]]) {
+    if (this.cardIndices[this.flippedIndices[0]] === this.cardIndices[this.flippedIndices[1]]) {
       console.log("Match!")
     } else {
       console.log("No Match!")
       let newFlipped = this.state.flipped
-      newFlipped[this.flippedIndex[0]] = false
-      newFlipped[this.flippedIndex[1]] = false
+      newFlipped[this.flippedIndices[0]] = false
+      newFlipped[this.flippedIndices[1]] = false
       this.setState({flipped: newFlipped})
     }
 

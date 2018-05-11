@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import CardArray from './components/CardArray'
-//import logo from '../images/logo.svg';
 import '../css/App.css'
 
 class App extends Component {
