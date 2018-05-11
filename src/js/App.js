@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import MenuBar from './components/MenuBar'
 import CardArray from './components/CardArray'
 import '../css/App.css'
 
@@ -6,19 +7,18 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      numPairs: 9
+      numPairs: 9,
+      query: 'yoshi'
     }
   }
 
   render() {
     return (
       <div className="App">
-        <div className="title">
-          <h1>GIFcentration</h1>
-        </div>
+        <MenuBar/>
         <CardArray
           numPairs={this.state.numPairs}
-          query={'yoshi'}
+          query={this.state.query}
         />
       </div>
     );
