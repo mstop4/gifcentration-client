@@ -10,7 +10,8 @@ class App extends Component {
     super()
     this.state = {
       imageUrls: [],
-      isLoaded: false,
+      imageLoaded: [],
+      isAllLoaded: false,
       canLoad: false,
       loadError: null,
       numPairs: 9,
@@ -21,13 +22,26 @@ class App extends Component {
     this.myCardArray = React.createRef()
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
+    this.handleImageLoad = this.handleImageLoad.bind(this)
   }
 
   componentDidMount() {
     this.serverAddress = process.env.REACT_APP_SERVER
+    this.resetImageLoadState()
 
     if (this.state.canLoad) {
       this.fetchGifs()
+    }
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.isAllLoaded) 
+    console.dir(this.state.imageLoaded)
+    if (!this.state.isAllLoaded && !this.state.imageLoaded.includes(false)) {
+      console.log("All images loaded!")
+      this.setState({ 
+        isAllLoaded: true
+      })
     }
   }
 
@@ -40,9 +54,34 @@ class App extends Component {
   handleQuerySubmit(event) {
     if (event.keyCode === 13) {
       this.myCardArray.current.resetCards()
+      this.resetImageLoadState()
       this.fetchGifs()
-      this.setState({canLoad: true})
+      this.setState({
+        canLoad: true,
+        isAllLoaded: false
+      })
     }
+  }
+
+  handleImageLoad(index, event) {
+    let newImageLoaded = this.state.imageLoaded
+    newImageLoaded[index] = true
+
+    console.log("Image loaded!")
+    this.setState({ imageLoaded: newImageLoaded})
+  }
+
+  resetImageLoadState() {
+    let newImageLoaded = []
+
+    for (let i = 0; i < this.state.numPairs; i++) {
+      newImageLoaded.push(false)
+    }
+
+    this.setState({
+      imageLoaded: newImageLoaded,
+      isAllLoaded: false
+    })
   }
 
   fetchGifs() {
@@ -51,14 +90,13 @@ class App extends Component {
     .then(data => {
       if (data.length < this.state.numPairs) {
         this.setState({
-          isLoaded: false,
+          isAllLoaded: false,
           loadError: "Query did not return enough GIFs"
         })
       } else {
+        this.resetImageLoadState()
         this.setState({
-          imageUrls: data,
-          isLoaded: true,
-          loadError: null
+          imageUrls: data
         })
       }
     },
@@ -66,7 +104,7 @@ class App extends Component {
     error => {
       console.dir(error)
       this.setState({
-        isLoaded: false,
+        isAllLoaded: false,
         loadError: error.message
       })
     }
@@ -83,10 +121,11 @@ class App extends Component {
         <MenuBar/>
         <CardArray
           ref={this.myCardArray}
-          isLoaded={this.state.isLoaded}
+          isAllLoaded={this.state.isAllLoaded}
           loadError={this.state.loadError}
           imageUrls={this.state.imageUrls}
           numPairs={this.state.numPairs}
+          handleImageLoad={this.handleImageLoad}
         />
       </div>
     );

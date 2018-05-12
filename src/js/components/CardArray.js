@@ -72,12 +72,13 @@ class CardArray extends Component {
     } else {
       let cardArray = [];
 
-      if (this.props.isLoaded) {
+      if (this.props.isAllLoaded) {
         for (let i = 0; i < this.props.numPairs*2; i++) {
           cardArray.push(
             <Card key={i}
                   index={i}
                   handleClick={this.handleCardFlip}
+                  handleImageLoad={this.props.handleImageLoad}
                   flipped={this.state.flipped[i]}
                   imageUrl={this.props.imageUrls[this.cardIndices[i]]}
                   altText='kitty'
@@ -95,10 +96,11 @@ class CardArray extends Component {
 }
 
 CardArray.propTypes = {
-  isLoaded: PropTypes.bool,
+  isAllLoaded: PropTypes.bool,
   loadError: PropTypes.string,
   imageUrls: PropTypes.array,
-  numPairs: PropTypes.number
+  numPairs: PropTypes.number,
+  handleImageLoad: PropTypes.func
 }
 
 export default CardArray
