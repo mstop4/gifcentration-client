@@ -14,7 +14,14 @@ class QueryBox extends Component {
                     onKeyUp={this.props.handleSubmit}
                   />
     } else {
-      textField = <span className="query-loading">Loading</span>
+
+      let numLoaded = 0
+      for (let img in this.props.imageLoaded) {
+        numLoaded = this.props.imageLoaded[img] ? numLoaded+1 : numLoaded
+      }
+      const totalImgs = Object.keys(this.props.imageLoaded).length
+
+      textField = <span className="query-loading">Loading ({numLoaded}/{totalImgs})</span>
     }
 
     return (
@@ -28,6 +35,7 @@ class QueryBox extends Component {
 QueryBox.propTypes = {
   query: PropTypes.string,
   showLoading: PropTypes.bool,
+  imageLoaded: PropTypes.array,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func
 }

@@ -125,6 +125,7 @@ class App extends Component {
         <QueryBox
           query={this.state.query}
           showLoading={this.state.canLoad && !this.state.isAllLoaded}
+          imageLoaded={this.state.imageLoaded}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
         />
