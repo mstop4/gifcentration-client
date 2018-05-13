@@ -15,12 +15,15 @@ class App extends Component {
       isAllLoaded: false,
       canLoad: false,
       loadError: null,
+      queryBoxDisabled: true,
       numPairs: 9,
       query: 'yoshi'
     }
 
     this.serverAddress = null
     this.myCardArray = React.createRef()
+
+    this.handleNewGame = this.handleNewGame.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
     this.handleImageLoad = this.handleImageLoad.bind(this)
@@ -51,9 +54,14 @@ class App extends Component {
     if (!this.state.isAllLoaded && done) {
       console.log("All images loaded!")
       this.setState({ 
-        isAllLoaded: true
+        isAllLoaded: true,
+        queryBoxDisabled: true
       })
     }
+  }
+
+  handleNewGame() {
+    this.setState({ queryBoxDisabled: !this.state.queryBoxDisabled })
   }
 
   handleQueryChange(event) {
@@ -68,7 +76,8 @@ class App extends Component {
       this.fetchGifs()
       this.setState({
         canLoad: true,
-        isAllLoaded: false
+        isAllLoaded: false,
+        imageLoaded: {}
       })
     }
   }
@@ -121,14 +130,18 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="app">
         <QueryBox
           query={this.state.query}
+          isDisabled={this.state.queryBoxDisabled}
           showLoading={this.state.canLoad && !this.state.isAllLoaded}
+          imageLoaded={this.state.imageLoaded}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
         />
-        <MenuBar/>
+        <MenuBar
+          handleNewGame={this.handleNewGame}
+        />
         <Preloader
           canLoad={this.state.canLoad}
           imageUrls={this.state.imageUrls}

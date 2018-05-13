@@ -14,14 +14,14 @@ class Card extends Component {
 
   render() {
     return (
-      <section className="container">
-        <div className={"body" + (this.props.flipped ? " flipped" : "")} onClick={this.handleClick}>
+      <section className="card-container">
+        <div className={"card-body" + (this.props.flipped ? " flipped" : "")} onClick={this.handleClick}>
           <figure className="front">
             ?
           </figure>
           <figure className="back">
             <img 
-              className="gif"
+              className="card-gif"
               src={this.props.imageUrl}
               alt={this.props.altText}
             />
