@@ -24,7 +24,7 @@ class Card extends Component {
               className="gif"
               src={this.props.imageUrl}
               alt={this.props.altText}
-              onLoad={this.handleImageLoad}/>
+            />
           </figure>
         </div>
       </section>
@@ -35,7 +35,6 @@ class Card extends Component {
 Card.propTypes = {
   index: PropTypes.number,
   handleClick: PropTypes.func,
-  handleImageLoad: PropTypes.func,
   flipped: PropTypes.bool,
   imageUrl: PropTypes.string,
   altText: PropTypes.string

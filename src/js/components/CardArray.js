@@ -78,7 +78,6 @@ class CardArray extends Component {
             <Card key={i}
                   index={i}
                   handleClick={this.handleCardFlip}
-                  handleImageLoad={this.props.handleImageLoad}
                   flipped={this.state.flipped[i]}
                   imageUrl={this.props.imageUrls[this.cardIndices[i]]}
                   altText='kitty'
@@ -100,7 +99,6 @@ CardArray.propTypes = {
   loadError: PropTypes.string,
   imageUrls: PropTypes.array,
   numPairs: PropTypes.number,
-  handleImageLoad: PropTypes.func
 }
 
 export default CardArray

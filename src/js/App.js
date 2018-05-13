@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MenuBar from './components/MenuBar'
 import CardArray from './components/CardArray'
 import QueryBox from './components/QueryBox'
+import Preloader from './components/Preloader'
 //import imageData from './helpers/imageData'
 import '../css/App.css'
 
@@ -10,7 +11,7 @@ class App extends Component {
     super()
     this.state = {
       imageUrls: [],
-      imageLoaded: [],
+      imageLoaded: {},
       isAllLoaded: false,
       canLoad: false,
       loadError: null,
@@ -27,7 +28,6 @@ class App extends Component {
 
   componentDidMount() {
     this.serverAddress = process.env.REACT_APP_SERVER
-    this.resetImageLoadState()
 
     if (this.state.canLoad) {
       this.fetchGifs()
@@ -35,9 +35,20 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state.isAllLoaded) 
-    console.dir(this.state.imageLoaded)
-    if (!this.state.isAllLoaded && !this.state.imageLoaded.includes(false)) {
+    let keys = Object.keys(this.state.imageLoaded)
+    let done = null
+
+    if (keys.length > 0) {
+      done = true
+
+      keys.forEach(key => {
+        done &= this.state.imageLoaded[key]
+      })
+    } else {
+      done = false
+    }
+
+    if (!this.state.isAllLoaded && done) {
       console.log("All images loaded!")
       this.setState({ 
         isAllLoaded: true
@@ -54,7 +65,6 @@ class App extends Component {
   handleQuerySubmit(event) {
     if (event.keyCode === 13) {
       this.myCardArray.current.resetCards()
-      this.resetImageLoadState()
       this.fetchGifs()
       this.setState({
         canLoad: true,
@@ -63,19 +73,18 @@ class App extends Component {
     }
   }
 
-  handleImageLoad(index, event) {
+  handleImageLoad(event) {
     let newImageLoaded = this.state.imageLoaded
-    newImageLoaded[index] = true
+    newImageLoaded[event.target.src] = true
 
-    console.log("Image loaded!")
     this.setState({ imageLoaded: newImageLoaded})
   }
 
-  resetImageLoadState() {
-    let newImageLoaded = []
+  resetImageLoadState(imgUrls) {
+    let newImageLoaded = {}
 
-    for (let i = 0; i < this.state.numPairs; i++) {
-      newImageLoaded.push(false)
+    for (let i = 0; i < imgUrls.length; i++) {
+      newImageLoaded[imgUrls[i]] = false
     }
 
     this.setState({
@@ -94,7 +103,7 @@ class App extends Component {
           loadError: "Query did not return enough GIFs"
         })
       } else {
-        this.resetImageLoadState()
+        this.resetImageLoadState(data)
         this.setState({
           imageUrls: data
         })
@@ -115,17 +124,22 @@ class App extends Component {
       <div className="App">
         <QueryBox
           query={this.state.query}
+          showLoading={this.state.canLoad && !this.state.isAllLoaded}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
         />
         <MenuBar/>
+        <Preloader
+          canLoad={this.state.canLoad}
+          imageUrls={this.state.imageUrls}
+          handleImageLoad={this.handleImageLoad}
+        />
         <CardArray
           ref={this.myCardArray}
           isAllLoaded={this.state.isAllLoaded}
           loadError={this.state.loadError}
           imageUrls={this.state.imageUrls}
           numPairs={this.state.numPairs}
-          handleImageLoad={this.handleImageLoad}
         />
       </div>
     );
