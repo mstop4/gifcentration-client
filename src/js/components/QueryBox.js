@@ -39,6 +39,7 @@ class QueryBox extends Component {
       <div className={classes}>
         {/* <h2>Enter a query</h2> */}
         {textField}
+        <button className="query-close" onClick={this.props.handleToggleQuery}>X</button>
       </div>
     )
   }
@@ -50,7 +51,8 @@ QueryBox.propTypes = {
   showLoading: PropTypes.bool,
   imageLoaded: PropTypes.object,
   handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  handleToggleQuery: PropTypes.func
 }
 
 export default QueryBox

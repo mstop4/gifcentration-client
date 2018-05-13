@@ -1,0 +1,28 @@
+.menubar {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+}
+
+.menubar-left {
+  float: left;
+}
+
+.menubar-right {
+  float: right;
+}
+
+.menubar h1 {
+  display: inline;
+  font-size: 2em;
+}
+
+.newgame {
+  border: 0;
+  background-color: #303030;
+  background-color: rgba(0,0,0,0);
+  color: white;
+  font-size: 1em;
+}

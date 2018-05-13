@@ -23,7 +23,7 @@ class App extends Component {
     this.serverAddress = null
     this.myCardArray = React.createRef()
 
-    this.handleNewGame = this.handleNewGame.bind(this)
+    this.handleToggleQuery = this.handleToggleQuery.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
     this.handleImageLoad = this.handleImageLoad.bind(this)
@@ -41,14 +41,18 @@ class App extends Component {
     let keys = Object.keys(this.state.imageLoaded)
     let done = null
 
-    if (keys.length > 0) {
+    if (this.state.loadError) {
       done = true
-
-      keys.forEach(key => {
-        done &= this.state.imageLoaded[key]
-      })
     } else {
-      done = false
+      if (keys.length > 0) {
+        done = true
+
+        keys.forEach(key => {
+          done &= this.state.imageLoaded[key]
+        })
+      } else {
+        done = false
+      }
     }
 
     if (!this.state.isAllLoaded && done) {
@@ -60,7 +64,7 @@ class App extends Component {
     }
   }
 
-  handleNewGame() {
+  handleToggleQuery() {
     this.setState({ queryBoxDisabled: !this.state.queryBoxDisabled })
   }
 
@@ -138,9 +142,10 @@ class App extends Component {
           imageLoaded={this.state.imageLoaded}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
+          handleToggleQuery={this.handleToggleQuery}
         />
         <MenuBar
-          handleNewGame={this.handleNewGame}
+          handleToggleQuery={this.handleToggleQuery}
         />
         <Preloader
           canLoad={this.state.canLoad}
