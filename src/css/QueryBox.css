@@ -1,8 +1,8 @@
 .query-background {
   left: 0;
-  top: 0;
+  top: -100%;
   width: 100%;
-  height: 0;
+  height: 100%;
   position: fixed;
   padding: 0;
   margin: 0;
@@ -16,9 +16,29 @@
   transition: 0.5s;
 }
 
+.query-background h2 {
+  color: blue;
+}
+
 .query-open {
-  height: 100%;
+  top: 0;
+}
+
+.query-loading {
+  font-size: 3em;
+  color: white;
 }
 
 .query-input {
+  color: white;
+  font-size: 3em;
+  background-color: black;
+  background-color: rgba(0,0,0,0);
+  border: 0;
+  border-bottom: 1px solid;
+  border-color: white;
+}
+
+.query-input:focus {
+  outline: none;
 }

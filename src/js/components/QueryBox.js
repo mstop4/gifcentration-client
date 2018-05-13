@@ -37,6 +37,7 @@ class QueryBox extends Component {
 
     return (
       <div className={classes}>
+        {/* <h2>Enter a query</h2> */}
         {textField}
       </div>
     )

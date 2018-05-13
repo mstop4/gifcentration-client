@@ -54,7 +54,8 @@ class App extends Component {
     if (!this.state.isAllLoaded && done) {
       console.log("All images loaded!")
       this.setState({ 
-        isAllLoaded: true
+        isAllLoaded: true,
+        queryBoxDisabled: true
       })
     }
   }
@@ -76,7 +77,7 @@ class App extends Component {
       this.setState({
         canLoad: true,
         isAllLoaded: false,
-        queryBoxDisabled: true
+        imageLoaded: {}
       })
     }
   }
@@ -129,7 +130,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="app">
         <QueryBox
           query={this.state.query}
           isDisabled={this.state.queryBoxDisabled}
