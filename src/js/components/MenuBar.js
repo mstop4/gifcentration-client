@@ -7,10 +7,14 @@ class MenuBar extends Component {
     return (
       <div className="menubar">
         <span className="title">GIFcentration</span>
-        <button className="newgame">New Game</button>
+        <button className="newgame" onClick={this.props.handleNewGame}>New Game</button>
       </div>
     )
   }
+}
+
+MenuBar.propTypes = {
+  handleNewGame: PropTypes.func
 }
 
 export default MenuBar

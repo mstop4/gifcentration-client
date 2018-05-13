@@ -57,6 +57,8 @@ class CardArray extends Component {
   }
 
   resetCards() {
+    this.numFlipped = 0
+    this.flippedIndices = [-1, -1]
     this.cardIndices = pairShuffler(this.props.numPairs)
     let newFlipped = []
     for (let i = 0; i < this.props.numPairs*2; i++) {
