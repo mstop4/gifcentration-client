@@ -21,7 +21,7 @@ class Card extends Component {
           <figure className="front">
             <i className="fas fa-question"></i>
           </figure>
-          <figure className="back">
+          <figure className={"back" + (this.props.matched ? " matched" : "")}>
             <img 
               className="card-gif"
               src={this.props.imageUrl}
@@ -39,6 +39,7 @@ Card.propTypes = {
   active: PropTypes.bool,
   handleClick: PropTypes.func,
   flipped: PropTypes.bool,
+  matched: PropTypes.bool,
   imageUrl: PropTypes.string,
   altText: PropTypes.string
 }

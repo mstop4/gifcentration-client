@@ -10,6 +10,7 @@ class CardArray extends Component {
     super()
     this.state = {
       flipped: [],
+      matched: []
     }
 
     this.numFlipped = 0
@@ -47,6 +48,10 @@ class CardArray extends Component {
   checkPair() {
     if (this.cardIndices[this.flippedIndices[0]] === this.cardIndices[this.flippedIndices[1]]) {
       console.log("Match!")
+      let newMatched = this.state.matched
+      newMatched[this.flippedIndices[0]] = true
+      newMatched[this.flippedIndices[1]] = true
+      this.setState({ matched: newMatched })
     } else {
       console.log("No Match!")
       let newFlipped = this.state.flipped
@@ -62,12 +67,18 @@ class CardArray extends Component {
     this.numFlipped = 0
     this.flippedIndices = [-1, -1]
     this.cardIndices = pairShuffler(this.props.numPairs)
+
     let newFlipped = []
     for (let i = 0; i < this.props.numPairs*2; i++) {
       newFlipped.push(false)
     }
 
-    this.setState({ flipped: newFlipped })
+    let newMatched = JSON.parse(JSON.stringify(newFlipped))
+
+    this.setState({ 
+      flipped: newFlipped,
+      matched: newMatched
+    })
   }
 
   render() {
@@ -82,6 +93,7 @@ class CardArray extends Component {
                 index={i}
                 handleClick={this.handleCardFlip}
                 flipped={this.state.flipped[i]}
+                matched={this.state.matched[i]}
                 active={this.props.isAllLoaded}
                 imageUrl={this.props.imageUrls[this.cardIndices[i]]}
                 altText='GIF'

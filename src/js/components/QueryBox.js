@@ -15,8 +15,11 @@ class QueryBox extends Component {
       }
       const totalImgs = Object.keys(this.props.imageLoaded).length
 
-      textField = <span 
-        className="query-loading">Loading ({numLoaded}/{totalImgs})</span>
+      textField = 
+      <div className="query-loading-container">
+        <div className="query-spinner"></div>
+        <span className="query-loading">Loading ({numLoaded}/{totalImgs})</span>
+      </div>
     } 
 
     // Show input field

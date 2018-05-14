@@ -20,6 +20,7 @@
   position: absolute;
   transform-style: preserve-3d;
   transition: transform 0.5s ease-out, opacity 1s ease-in;
+  transition: transform 0.5s ease-out, opacity 1s ease-in;
 }
 
 .card-body figure {
@@ -29,10 +30,11 @@
   width: var(--max-card-dim);
   height: var(--max-card-dim);
   backface-visibility: hidden;
+  transition: background-color 0.3s ease-out;
 }
 
 .card-body .front {
-  background: red;
+  background-color: #FF652F;
   color: white;
   text-align: center;
   font-weight: bold;
@@ -45,7 +47,12 @@
 }
 
 .card-body .back {
-  background: blue;
+  background-color: #FFE400;
+  transform: rotateY(180deg);
+}
+
+.card-body .back.matched{
+  background-color: #14A76C;
   transform: rotateY(180deg);
 }
 
