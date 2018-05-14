@@ -3,6 +3,8 @@ import Card from './Card'
 import PropTypes from 'prop-types'
 import pairShuffler from '../helpers/pairShuffler'
 
+const checkDelay = 1000;
+
 class CardArray extends Component {
   constructor() {
     super()
@@ -18,7 +20,7 @@ class CardArray extends Component {
     this.checkPair = this.checkPair.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.resetCards()
   }
 
@@ -33,7 +35,7 @@ class CardArray extends Component {
       this.numFlipped++
 
       if (this.numFlipped >= 2) {
-        setTimeout(this.checkPair, 1500)
+        setTimeout(this.checkPair, checkDelay)
       }
 
       this.setState({
@@ -74,17 +76,16 @@ class CardArray extends Component {
     } else {
       let cardArray = [];
 
-      if (this.props.isAllLoaded) {
-        for (let i = 0; i < this.props.numPairs*2; i++) {
-          cardArray.push(
-            <Card key={i}
-                  index={i}
-                  handleClick={this.handleCardFlip}
-                  flipped={this.state.flipped[i]}
-                  imageUrl={this.props.imageUrls[this.cardIndices[i]]}
-                  altText='kitty'
-          />)
-        }
+      for (let i = 0; i < this.props.numPairs*2; i++) {
+        cardArray.push(
+          <Card key={i}
+                index={i}
+                handleClick={this.handleCardFlip}
+                flipped={this.state.flipped[i]}
+                active={this.props.isAllLoaded}
+                imageUrl={this.props.imageUrls[this.cardIndices[i]]}
+                altText='GIF'
+        />)
       }
 
       return (
