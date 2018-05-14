@@ -19,7 +19,7 @@ class Card extends Component {
       <section className="card-container">
         <div className={"card-body" + (this.props.active ? " card-active" : " card-inactive") + (this.props.flipped ? " flipped" : "")} onClick={this.handleClick}>
           <figure className="front">
-            ?
+            <i className="fas fa-question"></i>
           </figure>
           <figure className="back">
             <img 

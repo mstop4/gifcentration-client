@@ -27,10 +27,12 @@
 
 .query-loading {
   font-size: 3em;
+  font-family: 'Jua', sans-serif;
 }
 
 .query-input {
   font-size: 3em;
+  font-family: 'Jua', sans-serif;
   background-color: black;
   background-color: rgba(0,0,0,0);
   border: 0;

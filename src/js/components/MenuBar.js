@@ -11,7 +11,7 @@ class MenuBar extends Component {
           <h1>GIFcentration</h1>
         </div>
         <div className="menubar-right">
-          <button className="newgame" onClick={this.props.handleToggleQuery}>New Game</button>
+          <button className="newgame" onClick={this.props.handleToggleQuery}><i className="fas fa-search"></i></button>
         </div>
       </div>
     )
