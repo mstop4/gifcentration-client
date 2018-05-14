@@ -17,7 +17,7 @@ class App extends Component {
       loadError: null,
       queryBoxDisabled: true,
       numPairs: 9,
-      query: 'yoshi'
+      query: 'cat'
     }
 
     this.serverAddress = null

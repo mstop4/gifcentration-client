@@ -9,13 +9,15 @@ class Card extends Component {
   }
 
   handleClick(e) {
-    this.props.handleClick(this.props.index, e)
+    if (this.props.active) {
+      this.props.handleClick(this.props.index, e)
+    }
   }
 
   render() {
     return (
       <section className="card-container">
-        <div className={"card-body" + (this.props.flipped ? " flipped" : "")} onClick={this.handleClick}>
+        <div className={"card-body" + (this.props.active ? " card-active" : " card-inactive") + (this.props.flipped ? " flipped" : "")} onClick={this.handleClick}>
           <figure className="front">
             ?
           </figure>
@@ -34,6 +36,7 @@ class Card extends Component {
 
 Card.propTypes = {
   index: PropTypes.number,
+  active: PropTypes.bool,
   handleClick: PropTypes.func,
   flipped: PropTypes.bool,
   imageUrl: PropTypes.string,
