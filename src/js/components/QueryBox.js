@@ -42,7 +42,7 @@ class QueryBox extends Component {
       <div className={classes}>
         {/* <h2>Enter a query</h2> */}
         {textField}
-        <button className="query-close" onClick={this.props.handleToggleQuery}><i className="fas fa-times"></i></button>
+        {!this.props.showLoading && <button className="query-close" onClick={this.props.handleToggleQuery}><i className="fas fa-times"></i></button>}
       </div>
     )
   }

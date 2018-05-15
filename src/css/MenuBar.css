@@ -20,6 +20,12 @@
   font-size: 2em;
 }
 
+.menubar h2 {
+  display: inline;
+  font-family: 'Jua', sans-serif;
+  font-size: 1em;
+}
+
 .newgame {
   border: 0;
   background-color: #272727;
