@@ -1,6 +1,6 @@
 # Browser Compatibility
 
-Broswer | Working?
+Browser | Working?
 --|--
 Chrome 66 | ✔️
 Firefox 60 | ✔️
