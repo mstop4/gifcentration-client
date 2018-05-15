@@ -23,7 +23,8 @@ class Preloader extends Component {
           <img 
             key={i}
             className="preloaded-img"
-            src={this.props.imageUrls[i]}
+            src={this.props.imageUrls[i].url}
+            alt={this.props.imageUrls[i].id}
             onLoad={this.onImageLoad}
           />
       )}

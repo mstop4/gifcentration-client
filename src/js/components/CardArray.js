@@ -26,7 +26,7 @@ class CardArray extends Component {
   }
 
   handleCardFlip(index, e) {
-    e.preventDefault()
+    //e.preventDefault()
 
     if (!this.state.flipped[index] && this.numFlipped < 2) {
       let newFlipped = this.state.flipped
@@ -96,7 +96,6 @@ class CardArray extends Component {
                 matched={this.state.matched[i]}
                 active={this.props.isAllLoaded}
                 imageUrl={this.props.imageUrls[this.cardIndices[i]]}
-                altText='GIF'
         />)
       }
 

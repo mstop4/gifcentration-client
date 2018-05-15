@@ -97,7 +97,7 @@ class App extends Component {
     let newImageLoaded = {}
 
     for (let i = 0; i < imgUrls.length; i++) {
-      newImageLoaded[imgUrls[i]] = false
+      newImageLoaded[imgUrls[i].url] = false
     }
 
     this.setState({
