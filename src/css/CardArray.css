@@ -1,0 +1,23 @@
+.array-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.array-container {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+  .array-container {
+    grid-template-columns: repeat(var(--num-cols), auto);
+  }
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+  .array-container {
+    grid-template-columns: repeat(var(--num-rows), auto);
+  }
+}
