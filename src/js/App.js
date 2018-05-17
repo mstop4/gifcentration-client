@@ -41,6 +41,7 @@ class App extends Component {
     }
 
     window.addEventListener('resize', this.handleWindowResize)
+    window.addEventListener('orientationchange', this.handleWindowResize)
   }
 
   componentDidUpdate() {
@@ -72,6 +73,7 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize)
+    window.removeEventListener('orientationchange', this.handleWindowResize)
   }
 
   handleToggleQuery() {
