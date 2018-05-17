@@ -3,7 +3,6 @@ import MenuBar from './components/MenuBar'
 import CardArray from './components/CardArray'
 import QueryBox from './components/QueryBox'
 import Preloader from './components/Preloader'
-//import imageData from './helpers/imageData'
 import '../css/App.css'
 
 class App extends Component {
@@ -27,6 +26,11 @@ class App extends Component {
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
     this.handleImageLoad = this.handleImageLoad.bind(this)
+    this.handleWindowResize = this.handleWindowResize.bind(this)
+  }
+
+  componentWillMount() {
+    this.handleWindowResize()
   }
 
   componentDidMount() {
@@ -35,6 +39,8 @@ class App extends Component {
     if (this.state.canLoad) {
       this.fetchGifs()
     }
+
+    window.addEventListener('resize', this.handleWindowResize)
   }
 
   componentDidUpdate() {
@@ -64,6 +70,10 @@ class App extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowResize)
+  }
+
   handleToggleQuery() {
     this.setState({ queryBoxDisabled: !this.state.queryBoxDisabled })
   }
@@ -91,6 +101,37 @@ class App extends Component {
     newImageLoaded[event.target.src] = true
 
     this.setState({ imageLoaded: newImageLoaded})
+  }
+
+  handleWindowResize() {
+    const w = window
+    const doc = document
+    const elem = doc.documentElement
+    const body = doc.getElementsByTagName('body')[0]
+
+    const width = w.innerWidth || elem.clientWidth || body.clientWidth
+    const height = w.innerHeight || elem.clientHeight || body.clientHeight
+
+    // Calculate card sizes
+    const htmlStyles = w.getComputedStyle(doc.getElementsByTagName('html')[0])
+    const cardGap = parseInt(htmlStyles.getPropertyValue('--card-gap'))
+    const numCols = parseInt(htmlStyles.getPropertyValue('--num-cols'))
+    const numRows = parseInt(htmlStyles.getPropertyValue('--num-rows'))
+    const menuBarHeight = parseInt(htmlStyles.getPropertyValue('--menubar-height'))
+    const appPadding = parseInt(htmlStyles.getPropertyValue('--app-padding'))
+
+    const aspectRatio = width / height
+    let idealCardHeight, idealCardWidth
+
+    if (aspectRatio >= 1) {
+      idealCardWidth = (width - appPadding*2) / numCols - cardGap*2;
+      idealCardHeight = (height - menuBarHeight - appPadding*2) / numRows - cardGap*2;
+    } else {
+      idealCardWidth = (width - appPadding*2) / numRows - cardGap*2;
+      idealCardHeight = (height - menuBarHeight - appPadding*2) / numCols - cardGap*2;     
+    }
+
+    elem.style.setProperty('--max-card-dim', Math.min(idealCardWidth, idealCardHeight).toString() + 'px')
   }
 
   resetImageLoadState(imgUrls) {

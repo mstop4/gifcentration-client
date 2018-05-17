@@ -1,13 +1,7 @@
-:root {
-  --max-card-dim: 200px;
-  --max-img-dim: 180px;
-  --corner-rad: calc(var(--max-card-dim) * 0.05);
-}
-
 .card-container {
   border: 1px solid #a0a0a0;
   border-radius: var(--corner-rad);
-  margin: 5px;
+  margin: var(--card-gap);
   width: var(--max-card-dim);
   height: var(--max-card-dim);
   position: relative;

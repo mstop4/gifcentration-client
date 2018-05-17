@@ -8,7 +8,7 @@ class MenuBar extends Component {
     return (
       <div className="menubar">
         <div className="menubar-left">
-          <h1>GIFcentration</h1> <h2>v.0.4.1</h2>
+          <h1>GIFcentration</h1> <h2>v.0.4.2</h2>
         </div>
         <div className="menubar-right">
           <button className="newgame" onClick={this.props.handleToggleQuery}><i className="fas fa-search"></i></button>
