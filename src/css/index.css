@@ -14,4 +14,5 @@ body {
   padding: var(--app-padding);
   font-family: sans-serif;
   background-color: #272727;
+  overflow: hidden;
 }
