@@ -1,0 +1,16 @@
+:root {
+  --numCols: 6;
+}
+
+.array-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.array-container {
+  width: 880px;
+  display: grid;
+  grid-template-columns: repeat(var(--numCols), auto);
+  justify-content: center;
+}

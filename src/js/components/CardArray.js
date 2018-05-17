@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Card from './Card'
 import PropTypes from 'prop-types'
 import pairShuffler from '../helpers/pairShuffler'
+import '../../css/CardArray.css'
 
 const checkDelay = 1000;
 
@@ -100,8 +101,10 @@ class CardArray extends Component {
       }
 
       return (
-        <div>
-          {cardArray}
+        <div className="array-wrapper">
+          <div className="array-container">
+            {cardArray}
+          </div>
         </div>
       )
     }
