@@ -27,14 +27,15 @@ class CardArray extends Component {
   }
 
   handleCardFlip(index, e) {
-    //e.preventDefault()
-
     if (!this.state.flipped[index] && this.numFlipped < 2) {
       let newFlipped = this.state.flipped
       newFlipped[index] = true
 
       this.flippedIndices[this.numFlipped] = index
       this.numFlipped++
+
+      console.log(this.props.sndCardFlip)
+      this.props.sndCardFlip.play()
 
       if (this.numFlipped >= 2) {
         setTimeout(this.checkPair, checkDelay)

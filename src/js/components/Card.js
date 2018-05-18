@@ -5,6 +5,7 @@ import '../../css/Card.css'
 class Card extends Component {
   constructor() {
     super()
+
     this.handleCardClick = this.handleCardClick.bind(this)
     this.handleLinkClick = this.handleLinkClick.bind(this)
   }
