@@ -18,7 +18,9 @@ class QueryBox extends Component {
       textField = 
       <div className="query-loading-container">
         <div className="query-spinner"></div>
-        <span className="query-loading">Loading ({numLoaded}/{totalImgs})</span>
+          <span className="query-loading">
+          { totalImgs > 0 ? `Loading (${numLoaded}/${totalImgs})` : `Connecting...` }
+          </span>
       </div>
     } 
 

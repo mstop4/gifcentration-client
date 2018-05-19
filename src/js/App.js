@@ -16,7 +16,7 @@ class App extends Component {
       loadError: null,
       queryBoxDisabled: true,
       numPairs: 9,
-      query: 'cat'
+      query: 'cat',
     }
 
     this.serverAddress = null
@@ -116,11 +116,11 @@ class App extends Component {
 
     // Calculate card sizes
     const htmlStyles = w.getComputedStyle(doc.getElementsByTagName('html')[0])
-    const cardGap = parseInt(htmlStyles.getPropertyValue('--card-gap'))
-    const numCols = parseInt(htmlStyles.getPropertyValue('--num-cols'))
-    const numRows = parseInt(htmlStyles.getPropertyValue('--num-rows'))
-    const menuBarHeight = parseInt(htmlStyles.getPropertyValue('--menubar-height'))
-    const appPadding = parseInt(htmlStyles.getPropertyValue('--app-padding'))
+    const cardGap = parseInt(htmlStyles.getPropertyValue('--card-gap'), 10)
+    const numCols = parseInt(htmlStyles.getPropertyValue('--num-cols'), 10)
+    const numRows = parseInt(htmlStyles.getPropertyValue('--num-rows'), 10)
+    const menuBarHeight = parseInt(htmlStyles.getPropertyValue('--menubar-height'), 10)
+    const appPadding = parseInt(htmlStyles.getPropertyValue('--app-padding'), 10)
 
     const aspectRatio = width / height
     let idealCardHeight, idealCardWidth
@@ -201,6 +201,7 @@ class App extends Component {
           loadError={this.state.loadError}
           imageUrls={this.state.imageUrls}
           numPairs={this.state.numPairs}
+          sndCardFlip={this.sndCardFlip}
         />
       </div>
     );
