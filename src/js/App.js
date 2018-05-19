@@ -3,7 +3,6 @@ import MenuBar from './components/MenuBar'
 import CardArray from './components/CardArray'
 import QueryBox from './components/QueryBox'
 import Preloader from './components/Preloader'
-import SoundManager from './components/SoundManager'
 import '../css/App.css'
 
 class App extends Component {
@@ -203,9 +202,6 @@ class App extends Component {
           canLoad={this.state.canLoad}
           imageUrls={this.state.imageUrls}
           handleImageLoad={this.handleImageLoad}
-        />
-        <SoundManager
-          soundId={this.state.soundId}
         />
         <CardArray
           ref={this.myCardArray}
