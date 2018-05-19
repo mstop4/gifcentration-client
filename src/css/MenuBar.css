@@ -38,3 +38,17 @@
 .newgame:focus {
   outline: none;
 }
+
+@media screen and (max-width: 360px) {
+  .menubar h1 {
+    font-size: 1.5em;
+  }
+  
+  .menubar h2 {
+    font-size: 0.75em;
+  }
+  
+  .newgame {
+    font-size: 1.5em;
+  }
+}
