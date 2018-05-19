@@ -186,7 +186,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <button onClick={this.playSound.bind(this, 'cardFlip1')}>Doot</button>
+        <button onClick={this.playSound.bind(this, 'cardPlace1')}>Doot</button>
         <QueryBox
           query={this.state.query}
           isDisabled={this.state.queryBoxDisabled}

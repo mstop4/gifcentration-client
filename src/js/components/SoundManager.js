@@ -2,22 +2,23 @@ import React, { Component } from 'react'
 import ReactHowler from 'react-howler'
 import PropTypes from 'prop-types'
 
-const soundList = [ 'cardFlip1', 'cardFlip2' ]
+const soundList = [ 'cardPlace1', 'cardPlace2' ]
 
 class SoundManager extends Component {
   constructor() {
     super()
 
     let initPlayState = {}
-    this.soundRefs = {}
+    let soundRefs = {}
 
     for (let snd in soundList) {
       initPlayState[soundList[snd]] = false
-      this.soundRefs[soundList[snd]] = React.createRef()
+      soundRefs[soundList[snd]] = React.createRef()
     }
 
     this.state = {
-      isPlaying: initPlayState
+      isPlaying: initPlayState,
+      soundRefs: soundRefs
     }
   }
 
@@ -28,6 +29,8 @@ class SoundManager extends Component {
         ...prevState.isPlaying,
         [nextProps.soundId]: true
       }
+
+      console.log(prevState.soundRefs[nextProps.soundId]._howler)
 
       return {
         isPlaying: newPlayState
@@ -41,8 +44,8 @@ class SoundManager extends Component {
     return (
       <ReactHowler
         src='../sounds/cardPlace1.mp3'
-        playing={this.state.isPlaying.cardFlip1}
-        ref={this.soundRefs.cardPlace1}
+        playing={this.state.isPlaying['cardPlace1']}
+        ref={this.state.soundRefs['cardPlace1']}
       />
     )
   }
