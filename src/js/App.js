@@ -201,7 +201,6 @@ class App extends Component {
           loadError={this.state.loadError}
           imageUrls={this.state.imageUrls}
           numPairs={this.state.numPairs}
-          sndCardFlip={this.sndCardFlip}
         />
       </div>
     );

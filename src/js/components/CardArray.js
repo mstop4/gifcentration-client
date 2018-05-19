@@ -34,9 +34,6 @@ class CardArray extends Component {
       this.flippedIndices[this.numFlipped] = index
       this.numFlipped++
 
-      console.log(this.props.sndCardFlip)
-      this.props.sndCardFlip.play()
-
       if (this.numFlipped >= 2) {
         setTimeout(this.checkPair, checkDelay)
       }
