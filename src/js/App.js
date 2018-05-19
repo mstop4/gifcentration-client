@@ -17,7 +17,6 @@ class App extends Component {
       queryBoxDisabled: true,
       numPairs: 9,
       query: 'cat',
-      soundId: null
     }
 
     this.serverAddress = null
@@ -28,7 +27,6 @@ class App extends Component {
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
     this.handleImageLoad = this.handleImageLoad.bind(this)
     this.handleWindowResize = this.handleWindowResize.bind(this)
-    this.playSound = this.playSound.bind(this)
   }
 
   componentWillMount() {
@@ -138,11 +136,6 @@ class App extends Component {
     elem.style.setProperty('--max-card-dim', Math.min(idealCardWidth, idealCardHeight).toString() + 'px')
   }
 
-  playSound(soundId) {
-    console.log("doot")
-    this.setState({ soundId: soundId })
-  }
-
   resetImageLoadState(imgUrls) {
     let newImageLoaded = {}
 
@@ -185,7 +178,6 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <button onClick={this.playSound.bind(this, 'cardPlace1')}>Doot</button>
         <QueryBox
           query={this.state.query}
           isDisabled={this.state.queryBoxDisabled}
