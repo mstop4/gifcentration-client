@@ -9,6 +9,7 @@
   margin: 0;
   z-index: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #272727;
@@ -18,7 +19,9 @@
 }
 
 .query-background h2 {
-  color: blue;
+  font-family: 'Jua', sans-serif;
+  font-size: 1.5em;
+  color: white;
 }
 
 .query-open {
@@ -97,6 +100,10 @@
     font-size: 2em;
   }
 
+  .query-background h2 {
+    font-size: 1em;
+  }
+
   .query-close {
     font-size: 3em;
   }
@@ -105,6 +112,10 @@
 @media screen and (max-width: 360px) {
   .query-input {
     font-size: 1.5em;
+  }
+
+  .query-background h2 {
+    font-size: 0.75em;
   }
 
   .query-close {

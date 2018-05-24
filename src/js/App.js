@@ -80,7 +80,8 @@ class App extends Component {
 
   handleQueryChange(event) {
     this.setState({
-      query: event.target.value
+      query: event.target.value,
+      fetchStatus: fetchStatus.ok
     })
   }
 
@@ -166,10 +167,9 @@ class App extends Component {
     },
 
     error => {
-      console.dir(error)
       this.setState({
         isAllLoaded: false,
-        fetchStatus: fetchStatus.unknownError
+        fetchStatus: fetchStatus.genericError
       })
     }
   )}

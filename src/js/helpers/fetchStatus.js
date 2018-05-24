@@ -3,7 +3,7 @@ const fetchStatus = {
   ok: "OK",
   insufficientGifs: "INSUFFICIENT_GIFS",
   connectionError: "CONNECTION_ERROR",
-  unknownError: "UNKNOWN_ERROR"
+  genericError: "GENERIC_ERROR"
 }
 
 export default fetchStatus

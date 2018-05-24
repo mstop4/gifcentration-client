@@ -6,6 +6,7 @@ import '../../css/QueryBox.css'
 class QueryBox extends Component {
   render() {
     let textField = null
+    let errorMsg = null
     const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
 
     // Show loading text
@@ -37,9 +38,17 @@ class QueryBox extends Component {
                   />
     }
 
+    // Query toggle class
     let classes = "query-background"
     if (!this.props.isHidden) {
       classes += " query-open"
+    }
+
+    // Error message
+    if (this.props.fetchStatus === fetchStatus.genericError) {
+      errorMsg = <h2>Oops! We couldn't get any GIFs for you.</h2>
+    } else if (this.props.fetchStatus === fetchStatus.insufficientGifs) {
+      errorMsg = <h2>Uh-oh! We couldn't find enough GIFs with that query.</h2>
     }
 
     return (
@@ -47,6 +56,7 @@ class QueryBox extends Component {
         {/* <h2>Enter a query</h2> */}
         {textField}
         {!showLoading && <button className="query-close" onClick={this.props.handleToggleQuery}><i className="fas fa-times"></i></button>}
+        {errorMsg}
       </div>
     )
   }
