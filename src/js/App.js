@@ -3,6 +3,7 @@ import MenuBar from './components/MenuBar'
 import CardArray from './components/CardArray'
 import QueryBox from './components/QueryBox'
 import Preloader from './components/Preloader'
+import fetchStatus from './helpers/fetchStatus'
 import '../css/App.css'
 
 class App extends Component {
@@ -13,7 +14,7 @@ class App extends Component {
       imageLoaded: {},
       isAllLoaded: false,
       canLoad: false,
-      loadError: '',
+      fetchStatus: fetchStatus.ok,
       hideQueryBox: true,
       numPairs: 9,
       query: '',
@@ -48,25 +49,22 @@ class App extends Component {
     let keys = Object.keys(this.state.imageLoaded)
     let done = null
 
-    if (this.state.loadError) {
+    if (keys.length > 0) {
       done = true
-    } else {
-      if (keys.length > 0) {
-        done = true
 
-        keys.forEach(key => {
-          done &= this.state.imageLoaded[key]
-        })
-      } else {
-        done = false
-      }
+      keys.forEach(key => {
+        done &= this.state.imageLoaded[key]
+      })
+    } else {
+      done = false
     }
 
     if (!this.state.isAllLoaded && done) {
       console.log("All images loaded!")
       this.setState({ 
         isAllLoaded: true,
-        hideQueryBox: true
+        hideQueryBox: true,
+        fetchStatus: fetchStatus.ok
       })
     }
   }
@@ -94,7 +92,7 @@ class App extends Component {
         canLoad: true,
         isAllLoaded: false,
         imageLoaded: {},
-        loadError: ''
+        fetchStatus: fetchStatus.pending
       })
     }
   }
@@ -157,7 +155,7 @@ class App extends Component {
       if (data.length < this.state.numPairs) {
         this.setState({
           isAllLoaded: false,
-          loadError: "Not enough GIFs"
+          fetchStatus: fetchStatus.insufficientGifs
         })
       } else {
         this.resetImageLoadState(data)
@@ -171,7 +169,7 @@ class App extends Component {
       console.dir(error)
       this.setState({
         isAllLoaded: false,
-        loadError: error.message
+        fetchStatus: fetchStatus.unknownError
       })
     }
   )}
@@ -182,8 +180,9 @@ class App extends Component {
         <QueryBox
           query={this.state.query}
           isHidden={this.state.hideQueryBox}
-          showLoading={this.state.canLoad && !this.state.isAllLoaded}
+          imagesFinished={this.state.canLoad && !this.state.isAllLoaded}
           imageLoaded={this.state.imageLoaded}
+          fetchStatus={this.state.fetchStatus}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
           handleToggleQuery={this.handleToggleQuery}
@@ -199,7 +198,7 @@ class App extends Component {
         <CardArray
           ref={this.myCardArray}
           isAllLoaded={this.state.isAllLoaded}
-          loadError={this.state.loadError}
+          fetchStatus={this.state.fetchStatus}
           imageUrls={this.state.imageUrls}
           numPairs={this.state.numPairs}
         />

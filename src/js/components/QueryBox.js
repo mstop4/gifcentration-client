@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
 
 class QueryBox extends Component {
-
   render() {
     let textField = null
-    
+    const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
+
     // Show loading text
-    if (this.props.showLoading) {
+    if (showLoading) {
       let numLoaded = 0
       for (let img in this.props.imageLoaded) {
         numLoaded = this.props.imageLoaded[img] ? numLoaded+1 : numLoaded
@@ -45,7 +46,7 @@ class QueryBox extends Component {
       <div className={classes}>
         {/* <h2>Enter a query</h2> */}
         {textField}
-        {!this.props.showLoading && <button className="query-close" onClick={this.props.handleToggleQuery}><i className="fas fa-times"></i></button>}
+        {!showLoading && <button className="query-close" onClick={this.props.handleToggleQuery}><i className="fas fa-times"></i></button>}
       </div>
     )
   }
@@ -54,8 +55,9 @@ class QueryBox extends Component {
 QueryBox.propTypes = {
   isHidden: PropTypes.bool,
   query: PropTypes.string,
-  showLoading: PropTypes.bool,
+  imagesFinished: PropTypes.bool,
   imageLoaded: PropTypes.object,
+  fetchStatus: PropTypes.string,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleToggleQuery: PropTypes.func
