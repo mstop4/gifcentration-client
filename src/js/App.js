@@ -13,10 +13,10 @@ class App extends Component {
       imageLoaded: {},
       isAllLoaded: false,
       canLoad: false,
-      loadError: null,
+      loadError: '',
       queryBoxDisabled: true,
       numPairs: 9,
-      query: 'cat',
+      query: '',
     }
 
     this.serverAddress = null
@@ -93,7 +93,8 @@ class App extends Component {
       this.setState({
         canLoad: true,
         isAllLoaded: false,
-        imageLoaded: {}
+        imageLoaded: {},
+        loadError: ''
       })
     }
   }
@@ -156,7 +157,7 @@ class App extends Component {
       if (data.length < this.state.numPairs) {
         this.setState({
           isAllLoaded: false,
-          loadError: "Query did not return enough GIFs"
+          loadError: "Not enough GIFs"
         })
       } else {
         this.resetImageLoadState(data)
@@ -203,7 +204,7 @@ class App extends Component {
           numPairs={this.state.numPairs}
         />
       </div>
-    );
+    )
   }
 }
 

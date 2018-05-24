@@ -99,11 +99,11 @@ class CardArray extends Component {
       }
 
       return (
-        <div className="array-wrapper">
+        // <div className="array-wrapper">
           <div className="array-container">
             {cardArray}
           </div>
-        </div>
+        // </div>
       )
     }
   }

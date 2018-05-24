@@ -29,6 +29,7 @@ class QueryBox extends Component {
       textField = <input
                     className="query-input"
                     type="text"
+                    placeholder="Search Giphy"
                     value={this.props.query}
                     onChange={this.props.handleChange}
                     onKeyUp={this.props.handleSubmit}
