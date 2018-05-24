@@ -14,7 +14,7 @@ class App extends Component {
       isAllLoaded: false,
       canLoad: false,
       loadError: '',
-      queryBoxDisabled: true,
+      hideQueryBox: true,
       numPairs: 9,
       query: '',
     }
@@ -66,7 +66,7 @@ class App extends Component {
       console.log("All images loaded!")
       this.setState({ 
         isAllLoaded: true,
-        queryBoxDisabled: true
+        hideQueryBox: true
       })
     }
   }
@@ -77,7 +77,7 @@ class App extends Component {
   }
 
   handleToggleQuery() {
-    this.setState({ queryBoxDisabled: !this.state.queryBoxDisabled })
+    this.setState({ hideQueryBox: !this.state.hideQueryBox })
   }
 
   handleQueryChange(event) {
@@ -181,7 +181,7 @@ class App extends Component {
       <div className="app">
         <QueryBox
           query={this.state.query}
-          isDisabled={this.state.queryBoxDisabled}
+          isHidden={this.state.hideQueryBox}
           showLoading={this.state.canLoad && !this.state.isAllLoaded}
           imageLoaded={this.state.imageLoaded}
           handleChange={this.handleQueryChange}

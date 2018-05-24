@@ -37,7 +37,7 @@ class QueryBox extends Component {
     }
 
     let classes = "query-background"
-    if (!this.props.isDisabled) {
+    if (!this.props.isHidden) {
       classes += " query-open"
     }
 
@@ -52,7 +52,7 @@ class QueryBox extends Component {
 }
 
 QueryBox.propTypes = {
-  isDisabled: PropTypes.bool,
+  isHidden: PropTypes.bool,
   query: PropTypes.string,
   showLoading: PropTypes.bool,
   imageLoaded: PropTypes.object,
