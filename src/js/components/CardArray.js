@@ -81,37 +81,31 @@ class CardArray extends Component {
   }
 
   render() {
-    if (this.props.loadError) {
-      return <p>Problem getting GIFs from the server: {this.props.loadError}</p>
-    } else {
-      let cardArray = [];
+    let cardArray = [];
 
-      for (let i = 0; i < this.props.numPairs*2; i++) {
-        cardArray.push(
-          <Card key={i}
-                index={i}
-                handleClick={this.handleCardFlip}
-                flipped={this.state.flipped[i]}
-                matched={this.state.matched[i]}
-                active={this.props.isAllLoaded}
-                imageUrl={this.props.imageUrls[this.cardIndices[i]]}
-        />)
-      }
-
-      return (
-        <div className="array-wrapper">
-          <div className="array-container">
-            {cardArray}
-          </div>
-        </div>
-      )
+    for (let i = 0; i < this.props.numPairs*2; i++) {
+      cardArray.push(
+        <Card key={i}
+              index={i}
+              handleClick={this.handleCardFlip}
+              flipped={this.state.flipped[i]}
+              matched={this.state.matched[i]}
+              active={this.props.isAllLoaded}
+              imageUrl={this.props.imageUrls[this.cardIndices[i]]}
+      />)
     }
+
+    return (
+      <div className="array-container">
+        {cardArray}
+      </div>
+    )
   }
 }
 
 CardArray.propTypes = {
   isAllLoaded: PropTypes.bool,
-  loadError: PropTypes.string,
+  fetchStatus: PropTypes.string,
   imageUrls: PropTypes.array,
   numPairs: PropTypes.number,
 }

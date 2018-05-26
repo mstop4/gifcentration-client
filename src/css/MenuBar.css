@@ -1,6 +1,5 @@
 .menubar {
   color: white;
-  height: var(--menubar-height);
   margin-top: calc((var(--app-padding) - 8px) * -1);
   display: flex;
   justify-content: space-between;

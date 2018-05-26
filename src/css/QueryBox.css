@@ -9,6 +9,7 @@
   margin: 0;
   z-index: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #272727;
@@ -18,7 +19,9 @@
 }
 
 .query-background h2 {
-  color: blue;
+  font-family: 'Jua', sans-serif;
+  font-size: 1.5em;
+  color: white;
 }
 
 .query-open {
@@ -42,6 +45,7 @@
   width: 75px;
   height: 75px;
   margin-bottom: 25px;
+  border-radius: 3.75px;
   -webkit-animation: an-spinner 0.75s infinite ease-in-out;
   animation: an-spinner 0.75s infinite ease-in-out;
 }
@@ -54,6 +58,15 @@
 @keyframes an-spinner {
   0% { transform: perspective(200px) rotateY(0deg)}
   100% { transform: perspective(200px) rotateY(180deg) }
+}
+
+.query-input-clear {
+  background-color: #272727;
+  background-color: rgba(0,0,0,0);
+  border: 0;
+  color: white;
+  display: inline-flex;
+  font-size: 2em;
 }
 
 .query-input {
@@ -69,6 +82,11 @@
 
 .query-input:focus {
   outline: none;
+}
+
+.query-input::placeholder {
+  color: #5C5C5C;
+  color: rgba(255,255,255,0.25);
 }
 
 .query-close {
@@ -87,6 +105,11 @@
     font-size: 3em;
   }
 
+  .query-input-clear {
+    font-size: 2em;
+  }
+  
+
   .query-close {
     font-size: 3em;
   }
@@ -97,6 +120,14 @@
     font-size: 2em;
   }
 
+  .query-input-clear {
+    font-size: 1.5em;
+  }  
+
+  .query-background h2 {
+    font-size: 1em;
+  }
+
   .query-close {
     font-size: 3em;
   }
@@ -105,6 +136,14 @@
 @media screen and (max-width: 360px) {
   .query-input {
     font-size: 1.5em;
+  }
+
+  .query-input-clear {
+    font-size: 1em;
+  }
+  
+  .query-background h2 {
+    font-size: 0.75em;
   }
 
   .query-close {

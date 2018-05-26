@@ -3,6 +3,7 @@ import MenuBar from './components/MenuBar'
 import CardArray from './components/CardArray'
 import QueryBox from './components/QueryBox'
 import Preloader from './components/Preloader'
+import fetchStatus from './helpers/fetchStatus'
 import '../css/App.css'
 
 class App extends Component {
@@ -13,18 +14,19 @@ class App extends Component {
       imageLoaded: {},
       isAllLoaded: false,
       canLoad: false,
-      loadError: null,
-      queryBoxDisabled: true,
+      fetchStatus: fetchStatus.ok,
+      hideQueryBox: true,
       numPairs: 9,
-      query: 'cat',
+      query: '',
     }
 
     this.serverAddress = null
     this.myCardArray = React.createRef()
 
-    this.handleToggleQuery = this.handleToggleQuery.bind(this)
+    this.handleQueryToggle = this.handleQueryToggle.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
+    this.handleQueryClear = this.handleQueryClear.bind(this)
     this.handleImageLoad = this.handleImageLoad.bind(this)
     this.handleWindowResize = this.handleWindowResize.bind(this)
   }
@@ -48,25 +50,22 @@ class App extends Component {
     let keys = Object.keys(this.state.imageLoaded)
     let done = null
 
-    if (this.state.loadError) {
+    if (keys.length > 0) {
       done = true
-    } else {
-      if (keys.length > 0) {
-        done = true
 
-        keys.forEach(key => {
-          done &= this.state.imageLoaded[key]
-        })
-      } else {
-        done = false
-      }
+      keys.forEach(key => {
+        done &= this.state.imageLoaded[key]
+      })
+    } else {
+      done = false
     }
 
     if (!this.state.isAllLoaded && done) {
       console.log("All images loaded!")
       this.setState({ 
         isAllLoaded: true,
-        queryBoxDisabled: true
+        hideQueryBox: true,
+        fetchStatus: fetchStatus.ok
       })
     }
   }
@@ -76,13 +75,14 @@ class App extends Component {
     window.removeEventListener('orientationchange', this.handleWindowResize)
   }
 
-  handleToggleQuery() {
-    this.setState({ queryBoxDisabled: !this.state.queryBoxDisabled })
+  handleQueryToggle() {
+    this.setState({ hideQueryBox: !this.state.hideQueryBox })
   }
 
   handleQueryChange(event) {
     this.setState({
-      query: event.target.value
+      query: event.target.value,
+      fetchStatus: fetchStatus.ok
     })
   }
 
@@ -93,9 +93,14 @@ class App extends Component {
       this.setState({
         canLoad: true,
         isAllLoaded: false,
-        imageLoaded: {}
+        imageLoaded: {},
+        fetchStatus: fetchStatus.pending
       })
     }
+  }
+
+  handleQueryClear() {
+    this.setState({ query: '' })
   }
 
   handleImageLoad(event) {
@@ -156,7 +161,7 @@ class App extends Component {
       if (data.length < this.state.numPairs) {
         this.setState({
           isAllLoaded: false,
-          loadError: "Query did not return enough GIFs"
+          fetchStatus: fetchStatus.insufficientGifs
         })
       } else {
         this.resetImageLoadState(data)
@@ -167,10 +172,9 @@ class App extends Component {
     },
 
     error => {
-      console.dir(error)
       this.setState({
         isAllLoaded: false,
-        loadError: error.message
+        fetchStatus: fetchStatus.genericError
       })
     }
   )}
@@ -180,15 +184,17 @@ class App extends Component {
       <div className="app">
         <QueryBox
           query={this.state.query}
-          isDisabled={this.state.queryBoxDisabled}
-          showLoading={this.state.canLoad && !this.state.isAllLoaded}
+          isHidden={this.state.hideQueryBox}
+          imagesFinished={this.state.canLoad && !this.state.isAllLoaded}
           imageLoaded={this.state.imageLoaded}
+          fetchStatus={this.state.fetchStatus}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
-          handleToggleQuery={this.handleToggleQuery}
+          handleQueryToggle={this.handleQueryToggle}
+          handleQueryClear={this.handleQueryClear}
         />
         <MenuBar
-          handleToggleQuery={this.handleToggleQuery}
+          handleQueryToggle={this.handleQueryToggle}
         />
         <Preloader
           canLoad={this.state.canLoad}
@@ -198,12 +204,12 @@ class App extends Component {
         <CardArray
           ref={this.myCardArray}
           isAllLoaded={this.state.isAllLoaded}
-          loadError={this.state.loadError}
+          fetchStatus={this.state.fetchStatus}
           imageUrls={this.state.imageUrls}
           numPairs={this.state.numPairs}
         />
       </div>
-    );
+    )
   }
 }
 
