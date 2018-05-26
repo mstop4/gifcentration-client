@@ -23,9 +23,10 @@ class App extends Component {
     this.serverAddress = null
     this.myCardArray = React.createRef()
 
-    this.handleToggleQuery = this.handleToggleQuery.bind(this)
+    this.handleQueryToggle = this.handleQueryToggle.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
+    this.handleQueryClear = this.handleQueryClear.bind(this)
     this.handleImageLoad = this.handleImageLoad.bind(this)
     this.handleWindowResize = this.handleWindowResize.bind(this)
   }
@@ -74,7 +75,7 @@ class App extends Component {
     window.removeEventListener('orientationchange', this.handleWindowResize)
   }
 
-  handleToggleQuery() {
+  handleQueryToggle() {
     this.setState({ hideQueryBox: !this.state.hideQueryBox })
   }
 
@@ -96,6 +97,10 @@ class App extends Component {
         fetchStatus: fetchStatus.pending
       })
     }
+  }
+
+  handleQueryClear() {
+    this.setState({ query: '' })
   }
 
   handleImageLoad(event) {
@@ -185,10 +190,11 @@ class App extends Component {
           fetchStatus={this.state.fetchStatus}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
-          handleToggleQuery={this.handleToggleQuery}
+          handleQueryToggle={this.handleQueryToggle}
+          handleQueryClear={this.handleQueryClear}
         />
         <MenuBar
-          handleToggleQuery={this.handleToggleQuery}
+          handleQueryToggle={this.handleQueryToggle}
         />
         <Preloader
           canLoad={this.state.canLoad}

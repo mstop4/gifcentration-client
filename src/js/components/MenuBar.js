@@ -46,7 +46,7 @@ class MenuBar extends Component {
           <h1>GIFcentration</h1> <h2>beta</h2>
         </div>
         <div className="menubar-right">
-          <button className="newgame" onClick={this.props.handleToggleQuery}><i className="fas fa-search"></i></button>
+          <button className="newgame" onClick={this.props.handleQueryToggle}><i className="fas fa-search"></i></button>
         </div>
       </div>
     )
@@ -54,7 +54,7 @@ class MenuBar extends Component {
 }
 
 MenuBar.propTypes = {
-  handleToggleQuery: PropTypes.func
+  handleQueryToggle: PropTypes.func
 }
 
 export default MenuBar
