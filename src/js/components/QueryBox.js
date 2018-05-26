@@ -32,7 +32,7 @@ class QueryBox extends Component {
       textField = <div>
                     <input
                       className="query-input"
-                      type="text"
+                      type="input"
                       placeholder="Search Giphy"
                       value={this.props.query}
                       onChange={this.props.handleChange}
