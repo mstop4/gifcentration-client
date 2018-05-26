@@ -21,6 +21,7 @@
     "gh-pages": "yarn build && push-dir --dir=build --branch=gh-pages --cleanup"
   },
   "devDependencies": {
+    "gh-pages": "^1.1.0",
     "push-dir": "^0.4.1"
   }
 }
