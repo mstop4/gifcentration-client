@@ -15,6 +15,7 @@ class App extends Component {
       isAllLoaded: false,
       canLoad: false,
       fetchStatus: fetchStatus.ok,
+      longWait: false,
       hideQueryBox: true,
       numPairs: 9,
       query: '',
@@ -23,6 +24,8 @@ class App extends Component {
     this.serverAddress = null
     this.myCardArray = React.createRef()
 
+    this.fetchGifs = this.fetchGifs.bind(this)
+    this.setLongWait = this.setLongWait.bind(this)
     this.handleQueryToggle = this.handleQueryToggle.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
@@ -90,11 +93,14 @@ class App extends Component {
     if (event.keyCode === 13) {
       this.myCardArray.current.resetCards()
       this.fetchGifs()
+      setTimeout(this.setLongWait, 3000)
+      
       this.setState({
         canLoad: true,
         isAllLoaded: false,
         imageLoaded: {},
-        fetchStatus: fetchStatus.pending
+        fetchStatus: fetchStatus.pending,
+        longWait: false
       })
     }
   }
@@ -139,6 +145,10 @@ class App extends Component {
     }
 
     elem.style.setProperty('--max-card-dim', Math.min(idealCardWidth, idealCardHeight).toString() + 'px')
+  }
+
+  setLongWait() {
+    this.setState({ longWait: true })
   }
 
   resetImageLoadState(imgUrls) {
@@ -188,6 +198,7 @@ class App extends Component {
           imagesFinished={this.state.canLoad && !this.state.isAllLoaded}
           imageLoaded={this.state.imageLoaded}
           fetchStatus={this.state.fetchStatus}
+          longWait={this.state.longWait}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
           handleQueryToggle={this.handleQueryToggle}

@@ -4,12 +4,12 @@ import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
 
 class QueryBox extends Component {
-
   render() {
     let textField = null
-    let errorMsg = null
     let closeButton = null
+    let blurb = <h2>&nbsp;</h2>
     const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
+    const totalImgs = Object.keys(this.props.imageLoaded).length
 
     // Show loading text
     if (showLoading) {
@@ -17,7 +17,6 @@ class QueryBox extends Component {
       for (let img in this.props.imageLoaded) {
         numLoaded = this.props.imageLoaded[img] ? numLoaded+1 : numLoaded
       }
-      const totalImgs = Object.keys(this.props.imageLoaded).length
 
       textField = 
       <div className="query-loading-container">
@@ -61,18 +60,21 @@ class QueryBox extends Component {
       classes += " query-open"
     }
 
-    // Error message
-    if (this.props.fetchStatus === fetchStatus.genericError) {
-      errorMsg = <h2>Oops! We couldn't get any GIFs for you.</h2>
+    // Blurb message
+    if (this.props.fetchStatus === fetchStatus.pending &&
+        this.props.longWait && totalImgs === 0) {
+      blurb = <h2>Poking the server...</h2>
+    } else if (this.props.fetchStatus === fetchStatus.genericError) {
+      blurb = <h2>Oops! We couldn't get any GIFs for you.</h2>
     } else if (this.props.fetchStatus === fetchStatus.insufficientGifs) {
-      errorMsg = <h2>Uh-oh! We couldn't find enough GIFs with that query.</h2>
+      blurb = <h2>Uh-oh! We couldn't find enough GIFs with that query.</h2>
     }
 
     return (
       <div className={classes}>
         {!showLoading && closeButton}
         {textField}
-        {errorMsg}
+        {blurb}
       </div>
     )
   }
@@ -84,6 +86,7 @@ QueryBox.propTypes = {
   imagesFinished: PropTypes.bool,
   imageLoaded: PropTypes.object,
   fetchStatus: PropTypes.string,
+  longWait: PropTypes.bool,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleQueryToggle: PropTypes.func,
