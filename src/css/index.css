@@ -1,14 +1,3 @@
-:root {
-  --app-padding: 20px;
-  --card-gap: 5px;
-  --menubar-height: 50px;
-  --max-card-dim: 200px;
-  --max-img-dim: calc(var(--max-card-dim) * 0.9);
-  --corner-rad: calc(var(--max-card-dim) * 0.05);
-  --num-cols: 6;
-  --num-rows: 3;
-}
-
 body {
   margin: 0;
   padding: var(--app-padding);

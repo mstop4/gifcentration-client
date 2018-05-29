@@ -4,6 +4,7 @@ import CardArray from './components/CardArray'
 import QueryBox from './components/QueryBox'
 import Preloader from './components/Preloader'
 import fetchStatus from './helpers/fetchStatus'
+import layouts from './helpers/layouts'
 import '../css/App.css'
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
       fetchStatus: fetchStatus.ok,
       longWait: false,
       hideQueryBox: true,
+      layout: 'medium',
       numPairs: 9,
       query: '',
     }
@@ -26,6 +28,7 @@ class App extends Component {
 
     this.fetchGifs = this.fetchGifs.bind(this)
     this.setLongWait = this.setLongWait.bind(this)
+    this.changeLayout = this.changeLayout.bind(this)
     this.handleQueryToggle = this.handleQueryToggle.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
@@ -35,15 +38,11 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.handleWindowResize()
+    this.changeLayout(this.state.layout)
   }
 
   componentDidMount() {
     this.serverAddress = process.env.REACT_APP_SERVER
-
-    if (this.state.canLoad) {
-      this.fetchGifs()
-    }
 
     window.addEventListener('resize', this.handleWindowResize)
     window.addEventListener('orientationchange', this.handleWindowResize)
@@ -136,6 +135,8 @@ class App extends Component {
     const aspectRatio = width / height
     let idealCardHeight, idealCardWidth
 
+    console.log(numRows, numCols)
+
     if (aspectRatio >= 1) {
       idealCardWidth = (width - appPadding*2) / numCols - cardGap*2;
       idealCardHeight = (height - menuBarHeight - appPadding*2) / numRows - cardGap*2;
@@ -145,6 +146,28 @@ class App extends Component {
     }
 
     elem.style.setProperty('--max-card-dim', Math.min(idealCardWidth, idealCardHeight).toString() + 'px')
+  }
+
+  changeLayout(layout) {
+    const doc = document
+    const elem = doc.documentElement
+
+    if (layout in layouts) {
+      const newRows = layouts[layout].rows
+      const newCols = layouts[layout].columns
+
+      console.log('r', newRows, 'c', newCols)
+
+      elem.style.setProperty('--num-rows', newRows)
+      elem.style.setProperty('--num-cols', newCols)
+      this.setState({ numPairs: (newRows * newCols / 2) })
+    } else {
+      elem.style.setProperty('--num-rows', 3)
+      elem.style.setProperty('--num-cols', 6)
+      this.setState({ numPairs: 9 })
+    }
+
+    this.handleWindowResize()
   }
 
   setLongWait() {

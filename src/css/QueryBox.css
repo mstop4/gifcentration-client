@@ -85,8 +85,8 @@
 }
 
 .query-input::placeholder {
-  color: #5C5C5C;
-  color: rgba(255,255,255,0.25);
+  color: #5C5C5C; /* recalc later */
+  color: rgba(255,255,255,0.35);
 }
 
 .query-input::-ms-clear {
