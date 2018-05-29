@@ -10,7 +10,6 @@
 }
 
 .card-body {
-  border: 2px solid #c0c0c0;
   border-radius: var(--corner-rad);
   width: 100%;
   height: 100%;
@@ -22,6 +21,7 @@
 
 .card-body figure {
   margin: 0;
+  border: 2px solid #c0c0c0;
   border-radius: var(--corner-rad);
   display: block;
   position: absolute;
