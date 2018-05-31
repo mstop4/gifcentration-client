@@ -135,8 +135,6 @@ class App extends Component {
     const aspectRatio = width / height
     let idealCardHeight, idealCardWidth
 
-    console.log(numRows, numCols)
-
     if (aspectRatio >= 1) {
       idealCardWidth = (width - appPadding*2) / numCols - cardGap*2;
       idealCardHeight = (height - menuBarHeight - appPadding*2) / numRows - cardGap*2;
@@ -155,8 +153,6 @@ class App extends Component {
     if (layout in layouts) {
       const newRows = layouts[layout].rows
       const newCols = layouts[layout].columns
-
-      console.log('r', newRows, 'c', newCols)
 
       elem.style.setProperty('--num-rows', newRows)
       elem.style.setProperty('--num-cols', newCols)

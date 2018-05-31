@@ -30,7 +30,7 @@ class Card extends Component {
             <i className="fas fa-question"></i>
           </figure>
           <figure className={"back" + (this.props.matched ? " matched" : "")}>
-            <a href={this.props.imageUrl ? `https://giphy.com/gifs/${this.props.imageUrl.id}` : ''} target="_blank" onClick={this.handleLinkClick}>
+            <a href={this.props.imageUrl ? `https://giphy.com/gifs/${this.props.imageUrl.id}` : ""} target="_blank" onClick={this.handleLinkClick}>
               <img 
                 className="card-gif"
                 src={this.props.imageUrl ? this.props.imageUrl.url : ''}

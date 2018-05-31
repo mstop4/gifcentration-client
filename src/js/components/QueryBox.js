@@ -22,7 +22,7 @@ class QueryBox extends Component {
       <div className="query-loading-container">
         <div className="query-spinner"></div>
           <span className="query-loading">
-          { totalImgs > 0 ? `Loading (${numLoaded}/${totalImgs})` : `Connecting...` }
+          { totalImgs > 0 ? `Loading (${numLoaded}/${totalImgs})` : `Searching...` }
           </span>
       </div>
     } 
