@@ -27,6 +27,7 @@ class App extends Component {
     this.myCardArray = React.createRef()
 
     this.fetchGifs = this.fetchGifs.bind(this)
+    this.fetchSearchStats = this.fetchSearchStats.bind(this)
     this.setLongWait = this.setLongWait.bind(this)
     this.changeLayout = this.changeLayout.bind(this)
     this.handleQueryToggle = this.handleQueryToggle.bind(this)
@@ -43,6 +44,7 @@ class App extends Component {
 
   componentDidMount() {
     this.serverAddress = process.env.REACT_APP_SERVER
+    this.fetchSearchStats()
 
     window.addEventListener('resize', this.handleWindowResize)
     window.addEventListener('orientationchange', this.handleWindowResize)
@@ -163,6 +165,7 @@ class App extends Component {
       this.setState({ numPairs: 9 })
     }
 
+    // recalculate card sizes
     this.handleWindowResize()
   }
 
@@ -207,6 +210,14 @@ class App extends Component {
       })
     }
   )}
+
+  fetchSearchStats() {
+    fetch(`${this.serverAddress}/searchstats/popular`)
+    .then(res => res.json())
+    .then(data => {
+      console.dir(data)
+    })
+  }
 
   render() {
     return (
