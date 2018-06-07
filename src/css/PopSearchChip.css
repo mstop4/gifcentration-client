@@ -1,0 +1,11 @@
+.popSearch-chip {
+  display: inline-block;
+  margin: 5px;
+  padding: 0 25px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 25px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}

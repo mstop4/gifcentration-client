@@ -32,8 +32,10 @@ class App extends Component {
     this.setLongWait = this.setLongWait.bind(this)
     this.changeLayout = this.changeLayout.bind(this)
     this.handleQueryToggle = this.handleQueryToggle.bind(this)
+    this.querySubmitCommon = this.querySubmitCommon.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
+    this.handleChipClick = this.handleChipClick.bind(this)
     this.handleQueryClear = this.handleQueryClear.bind(this)
     this.handleImageLoad = this.handleImageLoad.bind(this)
     this.handleWindowResize = this.handleWindowResize.bind(this)
@@ -94,20 +96,29 @@ class App extends Component {
     })
   }
 
+  querySubmitCommon(query) {
+    this.myCardArray.current.resetCards()
+    this.fetchGifs(query)
+    setTimeout(this.setLongWait, 3000)
+    
+    this.setState({
+      canLoad: true,
+      isAllLoaded: false,
+      imageLoaded: {},
+      fetchStatus: fetchStatus.pending,
+      longWait: false
+    })
+  }
+
   handleQuerySubmit(event) {
     if (event.keyCode === 13) {
-      this.myCardArray.current.resetCards()
-      this.fetchGifs()
-      setTimeout(this.setLongWait, 3000)
-      
-      this.setState({
-        canLoad: true,
-        isAllLoaded: false,
-        imageLoaded: {},
-        fetchStatus: fetchStatus.pending,
-        longWait: false
-      })
+      this.querySubmitCommon(this.state.query)
     }
+  }
+
+  handleChipClick(query) {
+    this.setState({ query: query })
+    this.querySubmitCommon(query)
   }
 
   handleQueryClear() {
@@ -190,8 +201,8 @@ class App extends Component {
     })
   }
 
-  fetchGifs() {
-    fetch(`${this.serverAddress}/gifme/json?query=${this.state.query}&limit=${this.state.numPairs}`)
+  fetchGifs(query) {
+    fetch(`${this.serverAddress}/gifme/json?query=${query}&limit=${this.state.numPairs}`)
     .then(res => res.json())
     .then(data => {
       if (data.length < this.state.numPairs) {
@@ -236,6 +247,7 @@ class App extends Component {
           popularSearches={this.state.popularSearches}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
+          handleChipClick={this.handleChipClick}
           handleQueryToggle={this.handleQueryToggle}
           handleQueryClear={this.handleQueryClear}
         />

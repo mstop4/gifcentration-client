@@ -1,11 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import PopSearchChip from './PopSearchChip'
 import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
 
 class QueryBox extends Component {
-  render() {
+  constructor() {
+    super()
 
+    this.handleChipClick = this.handleChipClick.bind(this)
+  }
+
+  handleChipClick(query) {
+    this.handleSubmit(query)
+  }
+
+  render() {
     let textField = null
     let closeButton = null
     let blurb = <h2>&nbsp;</h2>
@@ -13,7 +23,13 @@ class QueryBox extends Component {
 
     if (this.props.popularSearches) {
       this.props.popularSearches.forEach((query) => {
-        popularSearches.push(<div className="query-popQuery" key={query._id}>{query._id}</div>)
+        popularSearches.push(
+          <PopSearchChip
+            key={query._id}
+            label={query._id}
+            handleClick={this.props.handleChipClick}
+          />
+        )
       })
     }
 
@@ -84,9 +100,11 @@ class QueryBox extends Component {
         {!showLoading && closeButton}
         {textField}
         {blurb}
-        <div className="query-popSearches">
-          {popularSearches}
-        </div>
+        {!showLoading &&
+          <div className="query-popSearches">
+            {popularSearches}
+          </div>
+        }
       </div>
     )
   }
@@ -102,6 +120,7 @@ QueryBox.propTypes = {
   popularSearches: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
+  handleChipClick: PropTypes.func,
   handleQueryToggle: PropTypes.func,
   handleQueryClear: PropTypes.func
 }
