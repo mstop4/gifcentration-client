@@ -5,9 +5,18 @@ import '../../css/QueryBox.css'
 
 class QueryBox extends Component {
   render() {
+
     let textField = null
     let closeButton = null
     let blurb = <h2>&nbsp;</h2>
+    let popularSearches = []
+
+    if (this.props.popularSearches) {
+      this.props.popularSearches.forEach((query) => {
+        popularSearches.push(<div className="query-popQuery" key={query._id}>{query._id}</div>)
+      })
+    }
+
     const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
     const totalImgs = Object.keys(this.props.imageLoaded).length
 
@@ -75,6 +84,9 @@ class QueryBox extends Component {
         {!showLoading && closeButton}
         {textField}
         {blurb}
+        <div className="query-popSearches">
+          {popularSearches}
+        </div>
       </div>
     )
   }
@@ -87,6 +99,7 @@ QueryBox.propTypes = {
   imageLoaded: PropTypes.object,
   fetchStatus: PropTypes.string,
   longWait: PropTypes.bool,
+  popularSearches: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleQueryToggle: PropTypes.func,

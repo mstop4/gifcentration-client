@@ -21,6 +21,7 @@ class App extends Component {
       layout: 'medium',
       numPairs: 9,
       query: '',
+      popularSearches: null
     }
 
     this.serverAddress = null
@@ -71,6 +72,9 @@ class App extends Component {
         hideQueryBox: true,
         fetchStatus: fetchStatus.ok
       })
+
+      // refresh search stats
+      this.fetchSearchStats()
     }
   }
 
@@ -215,7 +219,7 @@ class App extends Component {
     fetch(`${this.serverAddress}/searchstats/popular`)
     .then(res => res.json())
     .then(data => {
-      console.dir(data)
+      this.setState({ popularSearches: data })
     })
   }
 
@@ -229,6 +233,7 @@ class App extends Component {
           imageLoaded={this.state.imageLoaded}
           fetchStatus={this.state.fetchStatus}
           longWait={this.state.longWait}
+          popularSearches={this.state.popularSearches}
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
           handleQueryToggle={this.handleQueryToggle}
