@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import QueryField from './QueryField'
 import PopSearchChip from './PopSearchChip'
 import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
@@ -16,7 +17,6 @@ class QueryBox extends Component {
   }
 
   render() {
-    let textField = null
     let closeButton = null
     let blurb = <h2>&nbsp;</h2>
     let popularSearches = []
@@ -35,44 +35,6 @@ class QueryBox extends Component {
 
     const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
     const totalImgs = Object.keys(this.props.imageLoaded).length
-
-    // Show loading text
-    if (showLoading) {
-      let numLoaded = 0
-      for (let img in this.props.imageLoaded) {
-        numLoaded = this.props.imageLoaded[img] ? numLoaded+1 : numLoaded
-      }
-
-      textField = 
-      <div className="query-loading-container">
-        <div className="query-spinner"></div>
-          <span className="query-loading">
-          { totalImgs > 0 ? `Loading (${numLoaded}/${totalImgs})` : `Searching...` }
-          </span>
-      </div>
-    } 
-
-    // Show input field. Show clear button only if input field is not empty
-    else {
-      textField = <div>
-                    <input
-                      className="query-input"
-                      type="input"
-                      placeholder="Search Giphy"
-                      value={this.props.query}
-                      onChange={this.props.handleChange}
-                      onKeyUp={this.props.handleSubmit}
-                    />
-                    {
-                      this.props.query &&
-                      <button className="query-input-clear"
-                              onClick={this.props.handleQueryClear}
-                      >
-                        <i className="far fa-times-circle"></i>
-                      </button>
-                    }
-                  </div>
-    }
 
     // Close button
     closeButton = <button className="query-close" onClick={this.props.handleQueryToggle}>
@@ -98,7 +60,14 @@ class QueryBox extends Component {
     return (
       <div className={classes}>
         {!showLoading && closeButton}
-        {textField}
+        <QueryField
+          showLoading={showLoading}
+          imageLoaded={this.props.imageLoaded}
+          query={this.props.query}
+          handleChange={this.props.handleChange}
+          handleQueryClear={this.props.handleQueryClear}
+          handleSubmit={this.props.handleSubmit}
+        />
         {blurb}
         {!showLoading &&
           <div className="query-popSearches">
