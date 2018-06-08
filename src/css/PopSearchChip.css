@@ -11,3 +11,39 @@
   font-size: 25px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1023px) {
+  .popSearch-chip {
+    font-size: 64px;
+    line-height: 64px;
+    height: 64px;
+    border-radius: 32px;
+    margin: 6px;
+    padding: 0 32px;
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .popSearch-chip {
+    font-size: 36px;
+    line-height: 36px;
+    height: 36px;
+    border-radius: 18px;
+    margin: 4px;
+    padding: 0 18px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .popSearch-chip {
+    font-size: 18px;
+    line-height: 18px;
+    height: 18px;
+    border-radius: 9px;
+    margin: 2px;
+    padding: 0 9px;
+    font-size: 9px;
+  }
+}

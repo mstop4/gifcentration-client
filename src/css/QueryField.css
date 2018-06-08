@@ -61,3 +61,33 @@
   width : 0;
   height: 0;
 }
+
+@media screen and (max-width: 1023px) {
+  .queryField-input {
+    font-size: 3em;
+  }
+
+  .queryField-input-clear {
+    font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .queryField-input {
+    font-size: 2em;
+  }
+
+  .queryField-input-clear {
+    font-size: 1.5em;
+  }  
+}
+
+@media screen and (max-width: 360px) {
+  .queryField-input {
+    font-size: 1.5em;
+  }
+
+  .queryField-input-clear {
+    font-size: 1em;
+  }
+}

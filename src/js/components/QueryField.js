@@ -56,7 +56,7 @@ class QueryField extends Component {
 QueryField.propTypes = {
   showLoading: PropTypes.bool,
   imageLoaded: PropTypes.object,
-  query: PropTypes.query,
+  query: PropTypes.string,
   handleChange: PropTypes.func,
   handleQueryClear: PropTypes.func,
   handleSubmit: PropTypes.func

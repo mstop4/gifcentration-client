@@ -31,52 +31,26 @@
   font-size: 4em;
 }
 
+.query-popSearches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+}
+
 @media screen and (max-width: 1023px) {
-  .query-input {
-    font-size: 3em;
-  }
-
-  .query-input-clear {
-    font-size: 2em;
-  }
-  
-
   .query-close {
     font-size: 3em;
   }
 }
 
 @media screen and (max-width: 720px) {
-  .query-input {
-    font-size: 2em;
-  }
-
-  .query-input-clear {
-    font-size: 1.5em;
-  }  
-
-  .query-background h2 {
-    font-size: 1em;
-  }
-
   .query-close {
     font-size: 3em;
   }
 }
 
 @media screen and (max-width: 360px) {
-  .query-input {
-    font-size: 1.5em;
-  }
-
-  .query-input-clear {
-    font-size: 1em;
-  }
-  
-  .query-background h2 {
-    font-size: 0.75em;
-  }
-
   .query-close {
     font-size: 2em;
   }
