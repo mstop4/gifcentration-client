@@ -17,12 +17,6 @@
   transition: 0.5s;
 }
 
-.query-background h2 {
-  font-family: 'Jua', sans-serif;
-  font-size: 1.5em;
-  color: white;
-}
-
 .query-open {
   top: 0;
 }

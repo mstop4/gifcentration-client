@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import QueryField from './QueryField'
+import QueryBlurb from './QueryBlurb'
 import PopSearchChip from './PopSearchChip'
 import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
@@ -18,7 +19,6 @@ class QueryBox extends Component {
 
   render() {
     let closeButton = null
-    let blurb = <h2>&nbsp;</h2>
     let popularSearches = []
 
     if (this.props.popularSearches) {
@@ -34,7 +34,6 @@ class QueryBox extends Component {
     }
 
     const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
-    const totalImgs = Object.keys(this.props.imageLoaded).length
 
     // Close button
     closeButton = <button className="query-close" onClick={this.props.handleQueryToggle}>
@@ -45,16 +44,6 @@ class QueryBox extends Component {
     let classes = "query-background"
     if (!this.props.isHidden) {
       classes += " query-open"
-    }
-
-    // Blurb message
-    if (this.props.fetchStatus === fetchStatus.pending &&
-        this.props.longWait && totalImgs === 0) {
-      blurb = <h2>Poking the server...</h2>
-    } else if (this.props.fetchStatus === fetchStatus.genericError) {
-      blurb = <h2>Oops! We couldn't get any GIFs for you.</h2>
-    } else if (this.props.fetchStatus === fetchStatus.insufficientGifs) {
-      blurb = <h2>Uh-oh! We couldn't find enough GIFs with that query.</h2>
     }
 
     return (
@@ -68,7 +57,11 @@ class QueryBox extends Component {
           handleQueryClear={this.props.handleQueryClear}
           handleSubmit={this.props.handleSubmit}
         />
-        {blurb}
+        <QueryBlurb
+          fetchStatus={this.props.fetchStatus}
+          longWait={this.props.longWait}
+          imageLoaded={this.props.imageLoaded}
+        />
         {!showLoading &&
           <div className="query-popSearches">
             {popularSearches}
