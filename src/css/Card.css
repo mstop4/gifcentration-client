@@ -1,5 +1,5 @@
 .card-container {
-  border: 1px solid #a0a0a0;
+  border: 1px solid var(--outline-color);
   border-radius: var(--corner-rad);
   margin: var(--card-gap);
   width: var(--max-card-dim);
@@ -21,7 +21,7 @@
 
 .card-body figure {
   margin: 0;
-  border: 2px solid #c0c0c0;
+  border: 2px solid var(--outline-color);
   border-radius: var(--corner-rad);
   display: block;
   position: absolute;
@@ -32,7 +32,7 @@
 }
 
 .card-body .front {
-  background-color: #FF652F;
+  background-color: var(--secondary-color);
   color: white;
   text-align: center;
   font-weight: bold;
@@ -45,12 +45,12 @@
 }
 
 .card-body .back {
-  background-color: #FFE400;
+  background-color: var(--secondary-color);
   transform: rotateY(180deg);
 }
 
 .card-body .back.matched{
-  background-color: #14A76C;
+  background-color: var(--primary-color);
   transform: rotateY(180deg);
 }
 
@@ -69,7 +69,7 @@
 .card-gif {
   max-height: var(--max-img-dim);  
   max-width: var(--max-img-dim); 
-  border: 1px solid #404040;
+  border: 1px solid var(--outline-color);
   width: auto;
   height: auto;
   position: absolute;  

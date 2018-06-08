@@ -5,7 +5,9 @@
   height: 50px;
   line-height: 50px;
   border-radius: 25px;
-  background-color: white;
-  color: black;
+  background-color: var(--primary-color);
+  color: white;
+  font-family: 'Jua', sans-serif;
+  font-size: 25px;
   cursor: pointer;
 }
