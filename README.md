@@ -1,5 +1,16 @@
-# GIFcentration Client
+# GIFcentration (Client)
 
-The frontend of the GIFcentration app.
+[![dependencies Status](https://david-dm.org/mstop4/gifcentration-client/status.svg)](https://david-dm.org/mstop4/gifcentration)
+[![devDependencies Status](https://david-dm.org/mstop4/gifcentration-client/dev-status.svg)](https://david-dm.org/mstop4/gifcentration?type=dev)
 
-A card-matching game that uses GIFs from Giphy as their front faces.
+Concentration (pairs-matching) game powered by Giphy.
+
+## Stack
+
+* MongoDB / Mongoose
+* Express.js
+* React
+* Node v8.11.1
+* Giphy JS SDK
+* Redis
+* Chance.js
