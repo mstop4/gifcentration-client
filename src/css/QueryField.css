@@ -1,0 +1,93 @@
+.queryField-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.queryField-loading {
+  font-size: 3em;
+  font-family: 'Jua', sans-serif;
+}
+
+.queryField-spinner {
+  background-color: white;
+  width: 75px;
+  height: 75px;
+  margin-bottom: 25px;
+  border-radius: 3.75px;
+  -webkit-animation: an-spinner 0.75s infinite ease-in-out;
+  animation: an-spinner 0.75s infinite ease-in-out;
+}
+
+@-webkit-keyframes an-spinner {
+  0% { -webkit-transform: perspective(200px) rotateY(0deg)}
+  100% { -webkit-transform: perspective(200px) rotateY(180deg) }
+}
+
+@keyframes an-spinner {
+  0% { transform: perspective(200px) rotateY(0deg)}
+  100% { transform: perspective(200px) rotateY(180deg) }
+}
+
+.queryField-input-clear {
+  background-color: rgba(0,0,0,0);
+  border: 0;
+  color: white;
+  display: inline-flex;
+  font-size: 2em;
+}
+
+.queryField-input {
+  font-size: 4em;
+  font-family: 'Jua', sans-serif;
+  background-color: rgba(0,0,0,0);
+  border: 0;
+  border-bottom: 1px solid;
+  border-color: white;
+  color: white;
+}
+
+.queryField-input:focus {
+  outline: none;
+}
+
+.queryField-input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+
+.queryField-input::-ms-clear {
+  display: none;
+  width : 0;
+  height: 0;
+}
+
+@media screen and (max-width: 1023px) {
+  .queryField-input {
+    font-size: 3em;
+  }
+
+  .queryField-input-clear {
+    font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .queryField-input {
+    font-size: 2em;
+  }
+
+  .queryField-input-clear {
+    font-size: 1.5em;
+  }  
+}
+
+@media screen and (max-width: 360px) {
+  .queryField-input {
+    font-size: 1.5em;
+  }
+
+  .queryField-input-clear {
+    font-size: 1em;
+  }
+}

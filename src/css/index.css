@@ -1,7 +1,16 @@
+:root {
+  --highlight-color: rgb(170,171,182);
+  --primary-color: rgb(46,156,202);
+  --secondary-color: rgb(41,100,138);
+  --primary-bgcolor: rgb(37,39,77);
+  --primary-bgcolor-90: rgba(37,39,77,0.9);
+  --outline-color: rgb(108, 112, 167);
+}
+
 body {
   margin: 0;
   padding: var(--app-padding);
   font-family: sans-serif;
-  background-color: #272727;
+  background-color: var(--primary-bgcolor);
   overflow: hidden;
 }

@@ -12,91 +12,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #272727;
-  background-color: rgba(39,39,39,0.9);
+  background-color: var(--primary-bgcolor-90);
   overflow-x: hidden;
   transition: 0.5s;
-}
-
-.query-background h2 {
-  font-family: 'Jua', sans-serif;
-  font-size: 1.5em;
-  color: white;
 }
 
 .query-open {
   top: 0;
 }
 
-.query-loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.query-loading {
-  font-size: 3em;
-  font-family: 'Jua', sans-serif;
-}
-
-.query-spinner {
-  background-color: white;
-  width: 75px;
-  height: 75px;
-  margin-bottom: 25px;
-  border-radius: 3.75px;
-  -webkit-animation: an-spinner 0.75s infinite ease-in-out;
-  animation: an-spinner 0.75s infinite ease-in-out;
-}
-
-@-webkit-keyframes an-spinner {
-  0% { -webkit-transform: perspective(200px) rotateY(0deg)}
-  100% { -webkit-transform: perspective(200px) rotateY(180deg) }
-}
-
-@keyframes an-spinner {
-  0% { transform: perspective(200px) rotateY(0deg)}
-  100% { transform: perspective(200px) rotateY(180deg) }
-}
-
-.query-input-clear {
-  background-color: #272727;
-  background-color: rgba(0,0,0,0);
-  border: 0;
-  color: white;
-  display: inline-flex;
-  font-size: 2em;
-}
-
-.query-input {
-  font-size: 4em;
-  font-family: 'Jua', sans-serif;
-  background-color: #272727;
-  background-color: rgba(0,0,0,0);
-  border: 0;
-  border-bottom: 1px solid;
-  border-color: white;
-  color: white;
-}
-
-.query-input:focus {
-  outline: none;
-}
-
-.query-input::placeholder {
-  color: #5C5C5C; /* recalc later */
-  color: rgba(255,255,255,0.35);
-}
-
-.query-input::-ms-clear {
-  display: none;
-  width : 0;
-  height: 0;
-}
-
 .query-close {
-  background-color: #272727;
   background-color: rgba(0,0,0,0);
   color: white;
   border: 0;
@@ -106,52 +31,26 @@
   font-size: 4em;
 }
 
+.query-popSearches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+}
+
 @media screen and (max-width: 1023px) {
-  .query-input {
-    font-size: 3em;
-  }
-
-  .query-input-clear {
-    font-size: 2em;
-  }
-  
-
   .query-close {
     font-size: 3em;
   }
 }
 
 @media screen and (max-width: 720px) {
-  .query-input {
-    font-size: 2em;
-  }
-
-  .query-input-clear {
-    font-size: 1.5em;
-  }  
-
-  .query-background h2 {
-    font-size: 1em;
-  }
-
   .query-close {
     font-size: 3em;
   }
 }
 
 @media screen and (max-width: 360px) {
-  .query-input {
-    font-size: 1.5em;
-  }
-
-  .query-input-clear {
-    font-size: 1em;
-  }
-  
-  .query-background h2 {
-    font-size: 0.75em;
-  }
-
   .query-close {
     font-size: 2em;
   }

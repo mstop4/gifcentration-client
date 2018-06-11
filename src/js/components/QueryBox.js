@@ -1,53 +1,39 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import QueryField from './QueryField'
+import QueryBlurb from './QueryBlurb'
+import PopSearchChip from './PopSearchChip'
 import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
 
 class QueryBox extends Component {
+  constructor() {
+    super()
+
+    this.handleChipClick = this.handleChipClick.bind(this)
+  }
+
+  handleChipClick(query) {
+    this.handleSubmit(query)
+  }
+
   render() {
-    let textField = null
     let closeButton = null
-    let blurb = <h2>&nbsp;</h2>
-    const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
-    const totalImgs = Object.keys(this.props.imageLoaded).length
+    let popularSearches = []
 
-    // Show loading text
-    if (showLoading) {
-      let numLoaded = 0
-      for (let img in this.props.imageLoaded) {
-        numLoaded = this.props.imageLoaded[img] ? numLoaded+1 : numLoaded
-      }
-
-      textField = 
-      <div className="query-loading-container">
-        <div className="query-spinner"></div>
-          <span className="query-loading">
-          { totalImgs > 0 ? `Loading (${numLoaded}/${totalImgs})` : `Searching...` }
-          </span>
-      </div>
-    } 
-
-    // Show input field. Show clear button only if input field is not empty
-    else {
-      textField = <div>
-                    <input
-                      className="query-input"
-                      type="input"
-                      placeholder="Search Giphy"
-                      value={this.props.query}
-                      onChange={this.props.handleChange}
-                      onKeyUp={this.props.handleSubmit}
-                    />
-                    {
-                      this.props.query &&
-                      <button className="query-input-clear"
-                              onClick={this.props.handleQueryClear}
-                      >
-                        <i className="far fa-times-circle"></i>
-                      </button>
-                    }
-                  </div>
+    if (this.props.popularSearches) {
+      this.props.popularSearches.forEach((query) => {
+        popularSearches.push(
+          <PopSearchChip
+            key={query._id}
+            label={query._id}
+            handleClick={this.props.handleChipClick}
+          />
+        )
+      })
     }
+
+    const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
 
     // Close button
     closeButton = <button className="query-close" onClick={this.props.handleQueryToggle}>
@@ -60,21 +46,27 @@ class QueryBox extends Component {
       classes += " query-open"
     }
 
-    // Blurb message
-    if (this.props.fetchStatus === fetchStatus.pending &&
-        this.props.longWait && totalImgs === 0) {
-      blurb = <h2>Poking the server...</h2>
-    } else if (this.props.fetchStatus === fetchStatus.genericError) {
-      blurb = <h2>Oops! We couldn't get any GIFs for you.</h2>
-    } else if (this.props.fetchStatus === fetchStatus.insufficientGifs) {
-      blurb = <h2>Uh-oh! We couldn't find enough GIFs with that query.</h2>
-    }
-
     return (
       <div className={classes}>
         {!showLoading && closeButton}
-        {textField}
-        {blurb}
+        <QueryField
+          showLoading={showLoading}
+          imageLoaded={this.props.imageLoaded}
+          query={this.props.query}
+          handleChange={this.props.handleChange}
+          handleQueryClear={this.props.handleQueryClear}
+          handleSubmit={this.props.handleSubmit}
+        />
+        <QueryBlurb
+          fetchStatus={this.props.fetchStatus}
+          longWait={this.props.longWait}
+          imageLoaded={this.props.imageLoaded}
+        />
+        {!showLoading &&
+          <div className="query-popSearches">
+            {popularSearches}
+          </div>
+        }
       </div>
     )
   }
@@ -87,8 +79,10 @@ QueryBox.propTypes = {
   imageLoaded: PropTypes.object,
   fetchStatus: PropTypes.string,
   longWait: PropTypes.bool,
+  popularSearches: PropTypes.arrayOf(PropTypes.object),
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
+  handleChipClick: PropTypes.func,
   handleQueryToggle: PropTypes.func,
   handleQueryClear: PropTypes.func
 }
