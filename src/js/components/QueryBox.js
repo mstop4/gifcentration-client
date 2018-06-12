@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import QueryField from './QueryField'
 import QueryBlurb from './QueryBlurb'
 import PopSearchChip from './PopSearchChip'
+import TrendingChip from './TrendingChip'
 import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
 
@@ -19,11 +20,20 @@ class QueryBox extends Component {
 
   render() {
     let closeButton = null
-    let popularSearches = []
+    let searchChips = []
+
+
+    searchChips.push(
+      <TrendingChip
+        key={"$trending"}
+        handleClick={this.props.handleTrendingClick}
+      />
+    )
+
 
     if (this.props.popularSearches) {
       this.props.popularSearches.forEach((query) => {
-        popularSearches.push(
+        searchChips.push(
           <PopSearchChip
             key={query._id}
             label={query._id}
@@ -64,7 +74,7 @@ class QueryBox extends Component {
         />
         {!showLoading &&
           <div className="query-popSearches">
-            {popularSearches}
+            {searchChips}
           </div>
         }
       </div>
@@ -83,6 +93,7 @@ QueryBox.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleChipClick: PropTypes.func,
+  handleTrendingClick: PropTypes.func,
   handleQueryToggle: PropTypes.func,
   handleQueryClear: PropTypes.func
 }

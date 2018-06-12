@@ -36,6 +36,7 @@ class App extends Component {
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
     this.handleChipClick = this.handleChipClick.bind(this)
+    this.handleTrendingClick = this.handleTrendingClick.bind(this)
     this.handleQueryClear = this.handleQueryClear.bind(this)
     this.handleImageLoad = this.handleImageLoad.bind(this)
     this.handleWindowResize = this.handleWindowResize.bind(this)
@@ -121,6 +122,21 @@ class App extends Component {
     this.querySubmitCommon(query)
   }
 
+  handleTrendingClick() {
+    this.handleQueryClear()
+    this.myCardArray.current.resetCards()
+    this.fetchTrending()
+    setTimeout(this.setLongWait, 3000)
+    
+    this.setState({
+      canLoad: true,
+      isAllLoaded: false,
+      imageLoaded: {},
+      fetchStatus: fetchStatus.pending,
+      longWait: false
+    })
+  }
+
   handleQueryClear() {
     this.setState({ query: '' })
   }
@@ -202,7 +218,32 @@ class App extends Component {
   }
 
   fetchGifs(query) {
-    fetch(`${this.serverAddress}/gifme/json?query=${query}&limit=${this.state.numPairs}`)
+    fetch(`${this.serverAddress}/gifme/search/json?query=${query}&limit=${this.state.numPairs}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.length < this.state.numPairs) {
+        this.setState({
+          isAllLoaded: false,
+          fetchStatus: fetchStatus.insufficientGifs
+        })
+      } else {
+        this.resetImageLoadState(data)
+        this.setState({
+          imageUrls: data
+        })
+      }
+    },
+
+    error => {
+      this.setState({
+        isAllLoaded: false,
+        fetchStatus: fetchStatus.genericError
+      })
+    }
+  )}
+
+  fetchTrending() {
+    fetch(`${this.serverAddress}/gifme/trending/json?limit=${this.state.numPairs}`)
     .then(res => res.json())
     .then(data => {
       if (data.length < this.state.numPairs) {
@@ -248,6 +289,7 @@ class App extends Component {
           handleChange={this.handleQueryChange}
           handleSubmit={this.handleQuerySubmit}
           handleChipClick={this.handleChipClick}
+          handleTrendingClick={this.handleTrendingClick}
           handleQueryToggle={this.handleQueryToggle}
           handleQueryClear={this.handleQueryClear}
         />
