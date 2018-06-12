@@ -21,13 +21,6 @@
   top: 0;
 }
 
-.query-popSearches {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 80%;
-}
-
 @media screen and (max-width: 1023px) {
   .query-close {
     font-size: 3em;
