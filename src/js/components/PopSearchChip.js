@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import '../../css/Chip.css'
 
-class PopSearchChip extends Component {
-  render() {
-    return(
-      <div 
-        className="chip popSearch"
-        onClick={() => this.props.handleClick(this.props.label)}
-      >
-        {this.props.label}
-      </div>
-    )
-  }
+const PopSearchChip = props => {
+  return (
+    <div
+      className="chip popSearch"
+      onClick={() => props.handleClick(props.label)}
+    >
+      {props.label}
+    </div>
+  )
 }
 
 PopSearchChip.propTypes = {

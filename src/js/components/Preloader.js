@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import '../../css/Preloader.css'
 
 class Preloader extends Component {
-
   constructor() {
     super()
 

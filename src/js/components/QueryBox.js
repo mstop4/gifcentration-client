@@ -22,7 +22,6 @@ class QueryBox extends Component {
     let closeButton = null
     let searchChips = []
 
-
     searchChips.push(
       <TrendingChip
         key={"$trending"}
