@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import QueryField from './QueryField'
 import QueryBlurb from './QueryBlurb'
+import CloseButton from './CloseButton'
 import PopSearchChip from './PopSearchChip'
 import TrendingChip from './TrendingChip'
 import fetchStatus from '../helpers/fetchStatus'
@@ -11,6 +12,7 @@ class QueryBox extends Component {
   constructor() {
     super()
 
+    this.maxChips = 9
     this.handleChipClick = this.handleChipClick.bind(this)
   }
 
@@ -19,7 +21,6 @@ class QueryBox extends Component {
   }
 
   render() {
-    let closeButton = null
     let searchChips = []
 
     searchChips.push(
@@ -30,7 +31,9 @@ class QueryBox extends Component {
     )
 
     if (this.props.popularSearches) {
-      this.props.popularSearches.forEach((query) => {
+      let chipCount = 0
+
+      this.props.popularSearches.every((query) => {
         searchChips.push(
           <PopSearchChip
             key={query._id}
@@ -38,15 +41,12 @@ class QueryBox extends Component {
             handleClick={this.props.handleChipClick}
           />
         )
+        chipCount++
+        return chipCount < this.maxChips
       })
     }
 
     const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
-
-    // Close button
-    closeButton = <button className="query-close" onClick={this.props.handleQueryToggle}>
-                    <i className="fas fa-times"></i>
-                  </button>
 
     // Query toggle class
     let classes = "query-background"
@@ -56,7 +56,10 @@ class QueryBox extends Component {
 
     return (
       <div className={classes}>
-        {!showLoading && closeButton}
+        {!showLoading && 
+          <CloseButton
+            handleClick={this.props.handleQueryToggle}
+        />}
         <QueryField
           showLoading={showLoading}
           imageLoaded={this.props.imageLoaded}

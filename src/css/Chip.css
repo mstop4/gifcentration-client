@@ -16,7 +16,7 @@
 }
 
 .chip.trending {
-  background-color: var(--secondary-color);
+  background-color: var(--highlight-color);
 }
 
 @media screen and (max-width: 1023px) {
