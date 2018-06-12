@@ -30,7 +30,6 @@ class QueryBox extends Component {
       />
     )
 
-
     if (this.props.popularSearches) {
       this.props.popularSearches.forEach((query) => {
         searchChips.push(

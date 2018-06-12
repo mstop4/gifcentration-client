@@ -7,7 +7,7 @@ class PopSearchChip extends Component {
     return(
       <div 
         className="chip popSearch"
-        onClick={() => this.props.handleClick()}
+        onClick={() => this.props.handleClick(this.props.label)}
       >
         {this.props.label}
       </div>
