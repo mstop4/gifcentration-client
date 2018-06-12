@@ -220,19 +220,7 @@ class App extends Component {
   fetchGifs(query) {
     fetch(`${this.serverAddress}/gifme/search/json?query=${query}&limit=${this.state.numPairs}`)
     .then(res => res.json())
-    .then(data => {
-      if (data.length < this.state.numPairs) {
-        this.setState({
-          isAllLoaded: false,
-          fetchStatus: fetchStatus.insufficientGifs
-        })
-      } else {
-        this.resetImageLoadState(data)
-        this.setState({
-          imageUrls: data
-        })
-      }
-    },
+    .then(data => this.fetchCommon(data),
 
     error => {
       this.setState({
@@ -245,19 +233,7 @@ class App extends Component {
   fetchTrending() {
     fetch(`${this.serverAddress}/gifme/trending/json?limit=${this.state.numPairs}`)
     .then(res => res.json())
-    .then(data => {
-      if (data.length < this.state.numPairs) {
-        this.setState({
-          isAllLoaded: false,
-          fetchStatus: fetchStatus.insufficientGifs
-        })
-      } else {
-        this.resetImageLoadState(data)
-        this.setState({
-          imageUrls: data
-        })
-      }
-    },
+    .then(data => this.fetchCommon(data),
 
     error => {
       this.setState({
@@ -266,6 +242,20 @@ class App extends Component {
       })
     }
   )}
+
+  fetchCommon(data) {
+    if (data.length < this.state.numPairs) {
+      this.setState({
+        isAllLoaded: false,
+        fetchStatus: fetchStatus.insufficientGifs
+      })
+    } else {
+      this.resetImageLoadState(data)
+      this.setState({
+        imageUrls: data
+      })
+    }
+  }
 
   fetchSearchStats() {
     fetch(`${this.serverAddress}/searchstats/popular`)
