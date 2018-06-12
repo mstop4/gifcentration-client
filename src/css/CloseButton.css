@@ -1,0 +1,9 @@
+.closeButton {
+  background-color: rgba(0,0,0,0);
+  color: white;
+  border: 0;
+  position: absolute;
+  top: 2vh;
+  right: 2vh;
+  font-size: 4em;
+}

@@ -6,7 +6,11 @@ import '../../css/QueryBlurb.css'
 const QueryBlurb = props => {
   const totalImgs = Object.keys(props.imageLoaded).length
 
-  if (props.fetchStatus === fetchStatus.pending &&
+  if (props.fetchStatus === fetchStatus.ok) {
+    return <h2>Popular Searches</h2>
+  }
+
+  else if (props.fetchStatus === fetchStatus.pending &&
     props.longWait && totalImgs === 0) {
     return <h2>Poking the server...</h2>
   }

@@ -2,20 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import '../../css/Chip.css'
 
-const PopSearchChip = props => {
+const TrendingChip = props => {
   return (
-    <div
-      className="chip popSearch"
+    <div 
+      className="chip trending"
       onClick={() => props.handleClick(props.label)}
     >
-      {props.label}
+      Trending
     </div>
   )
 }
 
-PopSearchChip.propTypes = {
+TrendingChip.propTypes = {
   label: PropTypes.string,
   handleClick: PropTypes.func
 }
 
-export default PopSearchChip
+export default TrendingChip

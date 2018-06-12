@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import '../../css/MenuBar.css'
 
 class MenuBar extends Component {
-
   constructor() {
     super()
 

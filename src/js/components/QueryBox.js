@@ -2,14 +2,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import QueryField from './QueryField'
 import QueryBlurb from './QueryBlurb'
+import CloseButton from './CloseButton'
 import PopSearchChip from './PopSearchChip'
+import TrendingChip from './TrendingChip'
 import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
+import PopularSearches from './PopularSearches';
 
 class QueryBox extends Component {
   constructor() {
     super()
 
+    this.maxChips = 9
     this.handleChipClick = this.handleChipClick.bind(this)
   }
 
@@ -18,27 +22,7 @@ class QueryBox extends Component {
   }
 
   render() {
-    let closeButton = null
-    let popularSearches = []
-
-    if (this.props.popularSearches) {
-      this.props.popularSearches.forEach((query) => {
-        popularSearches.push(
-          <PopSearchChip
-            key={query._id}
-            label={query._id}
-            handleClick={this.props.handleChipClick}
-          />
-        )
-      })
-    }
-
     const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
-
-    // Close button
-    closeButton = <button className="query-close" onClick={this.props.handleQueryToggle}>
-                    <i className="fas fa-times"></i>
-                  </button>
 
     // Query toggle class
     let classes = "query-background"
@@ -48,7 +32,10 @@ class QueryBox extends Component {
 
     return (
       <div className={classes}>
-        {!showLoading && closeButton}
+        {!showLoading && 
+          <CloseButton
+            handleClick={this.props.handleQueryToggle}
+        />}
         <QueryField
           showLoading={showLoading}
           imageLoaded={this.props.imageLoaded}
@@ -63,9 +50,12 @@ class QueryBox extends Component {
           imageLoaded={this.props.imageLoaded}
         />
         {!showLoading &&
-          <div className="query-popSearches">
-            {popularSearches}
-          </div>
+          <PopularSearches
+            handlePopularClick={this.handleChipClick}
+            handleTrendingClick={this.props.handleTrendingClick}
+            popularSearches={this.props.popularSearches}
+            maxChips={this.maxChips}
+          />
         }
       </div>
     )
@@ -83,6 +73,7 @@ QueryBox.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleChipClick: PropTypes.func,
+  handleTrendingClick: PropTypes.func,
   handleQueryToggle: PropTypes.func,
   handleQueryClear: PropTypes.func
 }
