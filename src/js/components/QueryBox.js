@@ -3,22 +3,15 @@ import PropTypes from 'prop-types'
 import QueryField from './QueryField'
 import QueryBlurb from './QueryBlurb'
 import CloseButton from './CloseButton'
-import PopSearchChip from './PopSearchChip'
-import TrendingChip from './TrendingChip'
+import PopularSearches from './PopularSearches'
 import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
-import PopularSearches from './PopularSearches';
 
 class QueryBox extends Component {
   constructor() {
     super()
 
     this.maxChips = 9
-    this.handleChipClick = this.handleChipClick.bind(this)
-  }
-
-  handleChipClick(query) {
-    this.handleSubmit(query)
   }
 
   render() {
@@ -51,7 +44,7 @@ class QueryBox extends Component {
         />
         {!showLoading &&
           <PopularSearches
-            handlePopularClick={this.handleChipClick}
+            handlePopularClick={this.props.handleChipClick}
             handleTrendingClick={this.props.handleTrendingClick}
             popularSearches={this.props.popularSearches}
             maxChips={this.maxChips}

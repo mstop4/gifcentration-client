@@ -40,7 +40,7 @@ const PopularSearches = props => {
 PopularSearches.propTypes = {
   handleChipClick: PropTypes.func,
   handleTrendingClick: PropTypes.func,
-  popularSearches: PropTypes.object,
+  popularSearches: PropTypes.arrayOf(PropTypes.object),
   maxChips: PropTypes.number
 }
 
