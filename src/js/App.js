@@ -237,7 +237,7 @@ class App extends Component {
     
     // ok
     else {
-      this.resetImageLoadState(data)
+      this.resetImageLoadState(data.gifs)
       this.setState({
         imageUrls: data.gifs
       })
