@@ -7,14 +7,14 @@ import '../../css/PopularSearches.css'
 const PopularSearches = props => {
   let searchChips = []
 
-  searchChips.push(
-    <TrendingChip
-      key={"$trending"}
-      handleClick={props.handleTrendingClick}
-    />
-  )
-
   if (props.popularSearches) {
+    searchChips.push(
+      <TrendingChip
+        key={"$trending"}
+        handleClick={props.handleTrendingClick}
+      />
+    )
+
     let chipCount = 0
 
     props.popularSearches.every((query) => {
@@ -28,6 +28,10 @@ const PopularSearches = props => {
       chipCount++
       return chipCount < props.maxChips
     })
+  } else {
+    searchChips.push(
+      <div className="popSearches-spinner"></div>
+    )
   }
 
   return (
