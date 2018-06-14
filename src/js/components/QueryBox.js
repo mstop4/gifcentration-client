@@ -1,65 +1,49 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import QueryField from './QueryField'
 import QueryBlurb from './QueryBlurb'
 import CloseButton from './CloseButton'
-import PopSearchChip from './PopSearchChip'
-import TrendingChip from './TrendingChip'
+import PopularSearches from './PopularSearches'
 import fetchStatus from '../helpers/fetchStatus'
 import '../../css/QueryBox.css'
-import PopularSearches from './PopularSearches';
 
-class QueryBox extends Component {
-  constructor() {
-    super()
+const QueryBox = props => {
+  const showLoading = props.imagesFinished && props.fetchStatus === fetchStatus.pending
 
-    this.maxChips = 9
-    this.handleChipClick = this.handleChipClick.bind(this)
+  // Query toggle class
+  let classes = "query-background"
+  if (!props.isHidden) {
+    classes += " query-open"
   }
 
-  handleChipClick(query) {
-    this.handleSubmit(query)
-  }
-
-  render() {
-    const showLoading = this.props.imagesFinished && this.props.fetchStatus === fetchStatus.pending
-
-    // Query toggle class
-    let classes = "query-background"
-    if (!this.props.isHidden) {
-      classes += " query-open"
-    }
-
-    return (
-      <div className={classes}>
-        {!showLoading && 
-          <CloseButton
-            handleClick={this.props.handleQueryToggle}
-        />}
-        <QueryField
-          showLoading={showLoading}
-          imageLoaded={this.props.imageLoaded}
-          query={this.props.query}
-          handleChange={this.props.handleChange}
-          handleQueryClear={this.props.handleQueryClear}
-          handleSubmit={this.props.handleSubmit}
+  return (
+    <div className={classes}>
+      {!showLoading && 
+        <CloseButton
+          handleClick={props.handleQueryToggle}
+      />}
+      <QueryField
+        showLoading={showLoading}
+        imageLoaded={props.imageLoaded}
+        query={props.query}
+        handleChange={props.handleChange}
+        handleQueryClear={props.handleQueryClear}
+        handleSubmit={props.handleSubmit}
+      />
+      <QueryBlurb
+        fetchStatus={props.fetchStatus}
+        longWait={props.longWait}
+        imageLoaded={props.imageLoaded}
+      />
+      {!showLoading &&
+        <PopularSearches
+          handlePopularClick={props.handleChipClick}
+          handleTrendingClick={props.handleTrendingClick}
+          popularSearches={props.popularSearches}
         />
-        <QueryBlurb
-          fetchStatus={this.props.fetchStatus}
-          longWait={this.props.longWait}
-          imageLoaded={this.props.imageLoaded}
-        />
-        {!showLoading &&
-          <PopularSearches
-            handlePopularClick={this.handleChipClick}
-            handleTrendingClick={this.props.handleTrendingClick}
-            popularSearches={this.props.popularSearches}
-            maxChips={this.maxChips}
-          />
-        }
-      </div>
-    )
-  }
+      }
+    </div>
+  )
 }
 
 QueryBox.propTypes = {

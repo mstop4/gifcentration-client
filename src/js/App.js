@@ -26,8 +26,9 @@ class App extends Component {
 
     this.serverAddress = null
     this.myCardArray = React.createRef()
+    this.maxPopSearches = 9
 
-    this.fetchGifs = this.fetchGifs.bind(this)
+    this.fetchSearch = this.fetchSearch.bind(this)
     this.fetchSearchStats = this.fetchSearchStats.bind(this)
     this.setLongWait = this.setLongWait.bind(this)
     this.changeLayout = this.changeLayout.bind(this)
@@ -99,7 +100,7 @@ class App extends Component {
 
   querySubmitCommon(query) {
     this.myCardArray.current.resetCards()
-    this.fetchGifs(query)
+    this.fetchSearch(query)
     setTimeout(this.setLongWait, 3000)
     
     this.setState({
@@ -169,11 +170,11 @@ class App extends Component {
     let idealCardHeight, idealCardWidth
 
     if (aspectRatio >= 1) {
-      idealCardWidth = (width - appPadding*2) / numCols - cardGap*2;
-      idealCardHeight = (height - menuBarHeight - appPadding*2) / numRows - cardGap*2;
+      idealCardWidth = (width - appPadding*2) / numCols - cardGap*2
+      idealCardHeight = (height - menuBarHeight - appPadding*2) / numRows - cardGap*2
     } else {
-      idealCardWidth = (width - appPadding*2) / numRows - cardGap*2;
-      idealCardHeight = (height - menuBarHeight - appPadding*2) / numCols - cardGap*2;     
+      idealCardWidth = (width - appPadding*2) / numRows - cardGap*2
+      idealCardHeight = (height - menuBarHeight - appPadding*2) / numCols - cardGap*2
     }
 
     elem.style.setProperty('--max-card-dim', Math.min(idealCardWidth, idealCardHeight).toString() + 'px')
@@ -217,7 +218,34 @@ class App extends Component {
     })
   }
 
-  fetchGifs(query) {
+  fetchCommon(data) {
+    // Fetch errors on server-side
+    if (data.status === fetchStatus.giphyError ||
+        data.status === fetchStatus.redisError) {
+      this.setState({
+        isAllLoaded: false,
+        fetchStatus: data.status
+      })
+    } 
+    
+    // Not enough gifs
+    else if (data.gifs.length < this.state.numPairs) {
+      this.setState({
+        isAllLoaded: false,
+        fetchStatus: fetchStatus.insufficientGifs
+      })
+    } 
+    
+    // ok
+    else {
+      this.resetImageLoadState(data.gifs)
+      this.setState({
+        imageUrls: data.gifs
+      })
+    }
+  }
+
+  fetchSearch(query) {
     fetch(`${this.serverAddress}/gifme/search/json?query=${query}&limit=${this.state.numPairs}`)
     .then(res => res.json())
     .then(data => this.fetchCommon(data),
@@ -225,7 +253,7 @@ class App extends Component {
     error => {
       this.setState({
         isAllLoaded: false,
-        fetchStatus: fetchStatus.genericError
+        fetchStatus: fetchStatus.serverError
       })
     }
   )}
@@ -243,25 +271,18 @@ class App extends Component {
     }
   )}
 
-  fetchCommon(data) {
-    if (data.length < this.state.numPairs) {
-      this.setState({
-        isAllLoaded: false,
-        fetchStatus: fetchStatus.insufficientGifs
-      })
-    } else {
-      this.resetImageLoadState(data)
-      this.setState({
-        imageUrls: data
-      })
-    }
-  }
-
   fetchSearchStats() {
-    fetch(`${this.serverAddress}/searchstats/popular`)
+    fetch(`${this.serverAddress}/searchstats/popular?limit=${this.maxPopSearches}`)
     .then(res => res.json())
     .then(data => {
-      this.setState({ popularSearches: data })
+      this.setState({
+        popularSearches: data
+      })
+    },
+
+    error => {
+      // Retry 
+      setTimeout(this.fetchSearchStats, 6000)
     })
   }
 
@@ -303,4 +324,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App

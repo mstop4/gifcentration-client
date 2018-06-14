@@ -40,7 +40,7 @@ class Card extends Component {
           </figure>
         </div>
       </section>
-    );
+    )
   }
 }
 
@@ -53,4 +53,4 @@ Card.propTypes = {
   imageUrl: PropTypes.object,
 }
 
-export default Card;
+export default Card

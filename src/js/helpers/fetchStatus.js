@@ -2,7 +2,9 @@ const fetchStatus = {
   pending: "PENDING",
   ok: "OK",
   insufficientGifs: "INSUFFICIENT_GIFS",
-  connectionError: "CONNECTION_ERROR",
+  giphyError: "GIPHY_ERROR",
+  redisError: "REDIS_ERROR",
+  serverError: "SERVER_CONNECTION_ERROR",
   genericError: "GENERIC_ERROR"
 }
 
