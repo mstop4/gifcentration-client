@@ -274,7 +274,14 @@ class App extends Component {
     fetch(`${this.serverAddress}/searchstats/popular`)
     .then(res => res.json())
     .then(data => {
-      this.setState({ popularSearches: data })
+      this.setState({
+        popularSearches: data
+      })
+    },
+
+    error => {
+      // Retry 
+      setTimeout(this.fetchSearchStats, 6000)
     })
   }
 

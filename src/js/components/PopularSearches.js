@@ -30,7 +30,7 @@ const PopularSearches = props => {
     })
   } else {
     searchChips.push(
-      <div className="popSearches-spinner"></div>
+      <div key="spinner" className="popSearches-spinner"></div>
     )
   }
 
