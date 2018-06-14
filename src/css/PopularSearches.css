@@ -1,7 +1,5 @@
 .popSearches {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: block;
   width: 80%;
 }
 
@@ -13,4 +11,10 @@
   border-radius: 2.5px;
   -webkit-animation: an-spinner 0.75s infinite ease-in-out;
   animation: an-spinner 0.75s infinite ease-in-out;
+}
+
+.popSearches-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

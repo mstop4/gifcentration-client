@@ -5,38 +5,57 @@ import TrendingChip from './TrendingChip'
 import '../../css/PopularSearches.css'
 
 const PopularSearches = props => {
-  let searchChips = []
+  const maxChipsPerRow = 5
+  let i = 0
+  let searchChipsTop = []
+  let searchChipBottom = []
 
   if (props.popularSearches) {
-    searchChips.push(
+    // Populate top row
+
+    searchChipsTop.push(
       <TrendingChip
         key={"$trending"}
         handleClick={props.handleTrendingClick}
       />
     )
 
-    let chipCount = 0
-
-    props.popularSearches.every((query) => {
-      searchChips.push(
+    for (; i < maxChipsPerRow-1 && i < props.popularSearches.length; i++) {
+      let queryText = props.popularSearches[i]._id
+      searchChipsTop.push(
         <PopSearchChip
-          key={query._id}
-          label={query._id}
+          key={queryText}
+          label={queryText}
           handleClick={props.handlePopularClick}
         />
       )
-      chipCount++
-      return chipCount < props.maxChips
-    })
+    }
+
+    // Populate bottow row
+    for (; i < maxChipsPerRow*2 && i < props.popularSearches.length; i++) {
+      let queryText = props.popularSearches[i]._id
+      searchChipBottom.push(
+        <PopSearchChip
+          key={queryText}
+          label={queryText}
+          handleClick={props.handlePopularClick}
+        />
+      )
+    }
   } else {
-    searchChips.push(
+    searchChipBottom.push(
       <div key="spinner" className="popSearches-spinner"></div>
     )
   }
 
   return (
     <div className="popSearches">
-      {searchChips}
+      <div className="popSearches-row">
+        {searchChipsTop}
+      </div>
+      <div className="popSearches-row">
+        {searchChipBottom}
+      </div>
     </div>
   )
 }
@@ -45,7 +64,6 @@ PopularSearches.propTypes = {
   handleChipClick: PropTypes.func,
   handleTrendingClick: PropTypes.func,
   popularSearches: PropTypes.arrayOf(PropTypes.object),
-  maxChips: PropTypes.number
 }
 
 
