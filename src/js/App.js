@@ -252,7 +252,7 @@ class App extends Component {
     error => {
       this.setState({
         isAllLoaded: false,
-        fetchStatus: fetchStatus.genericError
+        fetchStatus: fetchStatus.serverError
       })
     }
   )}
