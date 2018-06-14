@@ -10,7 +10,6 @@ class CardArray extends Component {
   constructor() {
     super()
     this.state = {
-      flipped: [],
       matched: []
     }
 
@@ -68,16 +67,6 @@ class CardArray extends Component {
     this.cardIndices = pairShuffler(this.props.numPairs)
 
     let newFlipped = []
-    for (let i = 0; i < this.props.numPairs*2; i++) {
-      newFlipped.push(false)
-    }
-
-    let newMatched = JSON.parse(JSON.stringify(newFlipped))
-
-    this.setState({ 
-      flipped: newFlipped,
-      matched: newMatched
-    })
   }
 
   render() {

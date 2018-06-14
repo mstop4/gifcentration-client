@@ -1,4 +1,4 @@
-const pairShuffler = (numPairs) => {
+const pairShuffler = numPairs => {
 
   // fully random by @BetonMAN
   const shuffleArray = arr => (
