@@ -169,11 +169,11 @@ class App extends Component {
     let idealCardHeight, idealCardWidth
 
     if (aspectRatio >= 1) {
-      idealCardWidth = (width - appPadding*2) / numCols - cardGap*2;
-      idealCardHeight = (height - menuBarHeight - appPadding*2) / numRows - cardGap*2;
+      idealCardWidth = (width - appPadding*2) / numCols - cardGap*2
+      idealCardHeight = (height - menuBarHeight - appPadding*2) / numRows - cardGap*2
     } else {
-      idealCardWidth = (width - appPadding*2) / numRows - cardGap*2;
-      idealCardHeight = (height - menuBarHeight - appPadding*2) / numCols - cardGap*2;     
+      idealCardWidth = (width - appPadding*2) / numRows - cardGap*2
+      idealCardHeight = (height - menuBarHeight - appPadding*2) / numCols - cardGap*2
     }
 
     elem.style.setProperty('--max-card-dim', Math.min(idealCardWidth, idealCardHeight).toString() + 'px')
@@ -323,4 +323,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App

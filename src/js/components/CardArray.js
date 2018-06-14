@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import pairShuffler from '../helpers/pairShuffler'
 import '../../css/CardArray.css'
 
-const checkDelay = 1000;
+const checkDelay = 1000
 
 class CardArray extends Component {
   constructor() {
@@ -81,7 +81,7 @@ class CardArray extends Component {
   }
 
   render() {
-    let cardArray = [];
+    let cardArray = []
 
     for (let i = 0; i < this.props.numPairs*2; i++) {
       cardArray.push(
