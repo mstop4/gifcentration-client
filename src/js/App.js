@@ -26,6 +26,7 @@ class App extends Component {
 
     this.serverAddress = null
     this.myCardArray = React.createRef()
+    this.maxPopSearches = 9
 
     this.fetchSearch = this.fetchSearch.bind(this)
     this.fetchSearchStats = this.fetchSearchStats.bind(this)
@@ -271,7 +272,7 @@ class App extends Component {
   )}
 
   fetchSearchStats() {
-    fetch(`${this.serverAddress}/searchstats/popular`)
+    fetch(`${this.serverAddress}/searchstats/popular?limit=${this.maxPopSearches}`)
     .then(res => res.json())
     .then(data => {
       this.setState({
