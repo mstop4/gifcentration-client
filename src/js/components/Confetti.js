@@ -6,11 +6,11 @@ import '../../css/Confetti.css'
 const Confetti = props => {
   return (
     <div className="confetti">
-      <ReactConfetti
+      {props.active && <ReactConfetti
         width={props.appWidth + 'px'}
         height={props.appHeight + 'px'}
         confettiSource={{x: 0, y: 0, w: props.appWidth, h: 0}}
-      />
+      />}
     </div>
   )
 }
