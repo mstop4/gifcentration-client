@@ -6,17 +6,18 @@ import '../../css/Confetti.css'
 const Confetti = props => {
   return (
     <div className="confetti">
-      {props.active && <ReactConfetti
+      <ReactConfetti
         width={props.appWidth + 'px'}
         height={props.appHeight + 'px'}
         confettiSource={{x: 0, y: 0, w: props.appWidth, h: 0}}
-      />}
+        numberOfPieces={500}
+        recycle={false}
+      />
     </div>
   )
 }
 
 Confetti.propTypes = {
-  active: PropTypes.bool,
   appWidth: PropTypes.number,
   appHeight: PropTypes.number
 }

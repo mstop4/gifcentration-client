@@ -55,7 +55,7 @@ class CardArray extends Component {
       this.setState({ matched: newMatched })
 
       if (!newMatched.includes(false)) {
-        setTimeout(() => this.setState({gameFinished: true}), 500)
+        this.setState({gameFinished: true})
       }
     } 
     
@@ -106,11 +106,10 @@ class CardArray extends Component {
 
     return (
       <div className="card-array">
-        <Confetti
+        {this.state.gameFinished && <Confetti
           appWidth={this.props.appWidth}
           appHeight={this.props.appHeight}
-          active={this.state.gameFinished}
-        />
+        />}
         <div className="array-container">
           {cardArray}
         </div>
