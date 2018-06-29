@@ -34,6 +34,7 @@ class App extends Component {
     this.changeLayout = this.changeLayout.bind(this)
     this.handleQueryToggle = this.handleQueryToggle.bind(this)
     this.querySubmitCommon = this.querySubmitCommon.bind(this)
+    this.autoQueryToggle = this.autoQueryToggle.bind(this)
     this.handleQueryChange = this.handleQueryChange.bind(this)
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this)
     this.handleChipClick = this.handleChipClick.bind(this)
@@ -50,6 +51,7 @@ class App extends Component {
   componentDidMount() {
     this.serverAddress = process.env.REACT_APP_SERVER
     this.fetchSearchStats()
+    setTimeout(this.autoQueryToggle, 750)
 
     window.addEventListener('resize', this.handleWindowResize)
     window.addEventListener('orientationchange', this.handleWindowResize)
@@ -85,6 +87,12 @@ class App extends Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowResize)
     window.removeEventListener('orientationchange', this.handleWindowResize)
+  }
+
+  autoQueryToggle() {
+    if (this.state.hideQueryBox) {
+      this.handleQueryToggle()
+    }
   }
 
   handleQueryToggle() {
