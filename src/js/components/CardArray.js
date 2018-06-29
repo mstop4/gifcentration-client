@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Card from './Card'
+import Confetti from './Confetti'
 import PropTypes from 'prop-types'
 import pairShuffler from '../helpers/pairShuffler'
 import '../../css/CardArray.css'
@@ -11,7 +12,8 @@ class CardArray extends Component {
     super()
     this.state = {
       flipped: [],
-      matched: []
+      matched: [],
+      gameFinished: false
     }
 
     this.numFlipped = 0
@@ -45,14 +47,20 @@ class CardArray extends Component {
   }
 
   checkPair() {
+    // Match
     if (this.cardIndices[this.flippedIndices[0]] === this.cardIndices[this.flippedIndices[1]]) {
-      console.log("Match!")
       let newMatched = this.state.matched
       newMatched[this.flippedIndices[0]] = true
       newMatched[this.flippedIndices[1]] = true
       this.setState({ matched: newMatched })
-    } else {
-      console.log("No Match!")
+
+      if (!newMatched.includes(false)) {
+        setTimeout(() => this.setState({gameFinished: true}), 500)
+      }
+    } 
+    
+    // No match
+    else {
       let newFlipped = this.state.flipped
       newFlipped[this.flippedIndices[0]] = false
       newFlipped[this.flippedIndices[1]] = false
@@ -76,7 +84,8 @@ class CardArray extends Component {
 
     this.setState({
       flipped: newFlipped,
-      matched: newMatched
+      matched: newMatched,
+      gameFinished: false
     })
   }
 
@@ -96,8 +105,13 @@ class CardArray extends Component {
     }
 
     return (
-      <div className="array-container">
-        {cardArray}
+      <div className="card-array">
+        <Confetti
+          active={this.state.gameFinished}
+        />
+        <div className="array-container">
+          {cardArray}
+        </div>
       </div>
     )
   }

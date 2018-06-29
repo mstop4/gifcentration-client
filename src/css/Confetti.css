@@ -1,0 +1,20 @@
+.confetti-1 {
+  position: fixed;
+  top: 65vh;
+  left: 50vw;
+  z-index: 1;
+}
+
+.confetti-2 {
+  position: fixed;
+  top: 65vh;
+  left: 25vw;
+  z-index: 1;
+}
+
+.confetti-3 {
+  position: fixed;
+  top: 65vh;
+  left: 75vw;
+  z-index: 1;
+}
