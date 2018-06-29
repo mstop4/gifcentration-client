@@ -11,6 +11,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      appWidth: 1,
+      appHeight: 1,
       imageUrls: [],
       imageLoaded: {},
       isAllLoaded: false,
@@ -164,6 +166,8 @@ class App extends Component {
 
     const width = w.innerWidth || elem.clientWidth || body.clientWidth
     const height = w.innerHeight || elem.clientHeight || body.clientHeight
+
+    this.setState({appWidth: width, appHeight: height})
 
     // Calculate card sizes
     const htmlStyles = w.getComputedStyle(doc.getElementsByTagName('html')[0])
@@ -321,6 +325,8 @@ class App extends Component {
         />
         <CardArray
           ref={this.myCardArray}
+          appWidth={this.state.appWidth}
+          appHeight={this.state.appHeight}
           isAllLoaded={this.state.isAllLoaded}
           fetchStatus={this.state.fetchStatus}
           imageUrls={this.state.imageUrls}
