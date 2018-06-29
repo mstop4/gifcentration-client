@@ -72,7 +72,6 @@ class App extends Component {
     }
 
     if (!this.state.isAllLoaded && done) {
-      console.log("All images loaded!")
       this.setState({ 
         isAllLoaded: true,
         hideQueryBox: true,
