@@ -107,6 +107,8 @@ class CardArray extends Component {
     return (
       <div className="card-array">
         <Confetti
+          appWidth={this.props.appWidth}
+          appHeight={this.props.appHeight}
           active={this.state.gameFinished}
         />
         <div className="array-container">
@@ -118,6 +120,8 @@ class CardArray extends Component {
 }
 
 CardArray.propTypes = {
+  appWidth: PropTypes.number,
+  appHeight: PropTypes.number,
   isAllLoaded: PropTypes.bool,
   fetchStatus: PropTypes.string,
   imageUrls: PropTypes.array,
