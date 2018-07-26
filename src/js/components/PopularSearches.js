@@ -6,13 +6,14 @@ import '../../css/PopularSearches.css'
 
 const PopularSearches = props => {
   const maxChipsPerRow = 5
+  const maxLabelLength = 12
   let i = 0
   let searchChipsTop = []
   let searchChipBottom = []
 
   if (props.popularSearches) {
-    // Populate top row
 
+    // Populate top row
     searchChipsTop.push(
       <TrendingChip
         key={"$trending"}
@@ -26,6 +27,7 @@ const PopularSearches = props => {
         <PopSearchChip
           key={queryText}
           label={queryText}
+          maxLabelLength={maxLabelLength}
           handleClick={props.handlePopularClick}
         />
       )
@@ -38,6 +40,7 @@ const PopularSearches = props => {
         <PopSearchChip
           key={queryText}
           label={queryText}
+          maxLabelLength={maxLabelLength}
           handleClick={props.handlePopularClick}
         />
       )
