@@ -5,6 +5,11 @@
 
 Concentration (pairs-matching) game powered by Giphy.
 
+![Screenshot](https://github.com/mstop4/gifcentration-client/blob/master/docs/demo.gif)
+
+## Demo
+https://mstop4.github.io/gifcentration-client/
+
 ## Stack
 
 * MongoDB / Mongoose
