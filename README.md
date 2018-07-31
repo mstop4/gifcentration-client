@@ -7,6 +7,8 @@ Concentration (pairs-matching) game powered by Giphy.
 
 ![Screenshot](https://github.com/mstop4/gifcentration-client/blob/master/docs/demo.gif)
 
+The **client** is the frontend that allows users to search for GIFs use the digested GIF data from the [server](https://github.com/mstop4/gifcentration-server) to play games on Concentration.
+
 ## Demo
 https://mstop4.github.io/gifcentration-client/
 
